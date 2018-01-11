@@ -1,0 +1,56 @@
+//
+//  Variables
+//
+
+$prefix                     : "yu" !default;
+
+// color
+$primary-color              : #1890ff !default;
+$success-color              : #52c41a !default;
+$error-color                : #f5222d !default;
+$hightlight-color           : #f5222d !default;
+$warning-color              : #faad14 !default;
+$white-color                : #fff !default;
+$black-color                : #000 !default;
+$text-color                 : fade(#000, 65%) !default;
+$background-color-base      : hsv(0, 0, 96%) !default;
+$background-color-light     : hsv(0, 0, 98%) !default;
+$disabled-color             : fade(#000, 25%) !default;
+$disabled-bg                : $background-color-base !default;
+$disabled-color-dark        : fade(#fff, 35%) !default;
+
+
+// font
+$font-size-base             : 14px !default;
+$font-size-lg               : $font-size-base + 2px !default;
+$font-size-sm               : 12px !default;
+// font-color
+$text-color                 : fade(#fff,65%) !default;
+$text-color-dark            : fade(#fff,85%) !default;
+
+// line
+$line-height-base           : 1.5 !default;
+
+// border
+$border-width-base          : 1px !default;
+$border-style-base          : solid !default;
+// border-radius
+$border-radius-base         : 4px !default;
+$border-radius-sm           : 2px !default;
+// border-color
+$border-color-base          : hsv(0, 0, 85%) !default;
+$border-color-split         : hsv(0, 0, 91) !default;
+
+// link
+$link-color                 : $primary-color !default;
+$link-color-hover           : #40a9ff !default;
+$link-color-active          : #096dd9 !default;
+$link-decoration            : none !default;
+$link-hover-decoration      : none !default;
+
+
+
+
+
+
+

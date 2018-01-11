@@ -1,0 +1,13 @@
+@import '../variables.scss';
+
+.#{$prefix}-app {
+  width: 400px;
+  height: 400px;
+  background: $primary-color;
+}
+
+.yu-app {
+  width: 30px;
+  height: 40px;
+  background: red;
+}

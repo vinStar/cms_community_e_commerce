@@ -1,14 +1,26 @@
 import React from 'react';
-import { Button } from 'antd';
+import classNames from 'classnames';
 
 class App extends React.Component {
+  static defaultProps = {
+    prefix: 'yu'
+  }
+
   render() {
+    const {
+      prefix
+    } = this.props
+
+    const classes = classNames(
+      `${prefix}-app`
+    )
+
     return (
-      <div className="App">
-        <Button type="primary">haha</Button>
+      <div className={classes}>
       </div>
     );
   }
 }
 
 export default App;
+
