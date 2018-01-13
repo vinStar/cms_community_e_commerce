@@ -17,6 +17,7 @@ class App extends React.Component {
 
     return (
       <div className={classes}>
+        nihao
       </div>
     );
   }

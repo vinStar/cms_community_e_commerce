@@ -12,21 +12,22 @@ $hightlight-color           : #f5222d !default;
 $warning-color              : #faad14 !default;
 $white-color                : #fff !default;
 $black-color                : #000 !default;
-$text-color                 : fade(#000, 65%) !default;
 $background-color-base      : hsv(0, 0, 96%) !default;
 $background-color-light     : hsv(0, 0, 98%) !default;
-$disabled-color             : fade(#000, 25%) !default;
+$disabled-color             : fade-in(#000, .25) !default;
 $disabled-bg                : $background-color-base !default;
-$disabled-color-dark        : fade(#fff, 35%) !default;
+$disabled-color-dark        : fade-in(#fff, .35) !default;
 
 
 // font
 $font-size-base             : 14px !default;
 $font-size-lg               : $font-size-base + 2px !default;
 $font-size-sm               : 12px !default;
+// font-weight
+$font-weight-base           : 300 !default;
 // font-color
-$text-color                 : fade(#fff,65%) !default;
-$text-color-dark            : fade(#fff,85%) !default;
+$text-color                 : fade-in(#000, .65) !default;
+$text-color-dark            : fade-in(#000, .85) !default;
 
 // line
 $line-height-base           : 1.5 !default;

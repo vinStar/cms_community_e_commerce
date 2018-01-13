@@ -1,9 +1,7 @@
 @import "../variables.scss";
 
 .#{$prefix} {
-  &-app {
-    width: 400px;
-    height: 400px;
-    background: $primary-color;
+  &-login {
+
   }
 }
