@@ -1,4 +1,11 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from 'react-router-dom';
 import classNames from 'classnames';
 
 class App extends React.Component {
@@ -16,8 +23,7 @@ class App extends React.Component {
     )
 
     return (
-      <div className={classes}>
-        nihao
+      <div>
       </div>
     );
   }
