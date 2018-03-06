@@ -1,19 +1,19 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
+import Login from './containers/Login/index';
 
 export default class Routes extends React.Component {
-  state = {
-
-  }
-
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (
-      <div>
-      </div>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Login}/>
+        </Switch>
+      </Router>
     )
   }
 }
