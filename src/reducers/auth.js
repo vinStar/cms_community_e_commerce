@@ -1,7 +1,8 @@
 import * as Types from '../actions/types';
-import isEmpty from 'lodash';
+import { isEmpty } from 'lodash';
 
 const initialState = {
+  error: {},
   isAuthenticated: false,
   user: {}
 }
@@ -13,6 +14,11 @@ export default (state = initialState, action = {}) => {
         ...state,
         isAuthenticated: !isEmpty(action.user),
         user: action.user
+      }
+    case Types.AUTH_ERROR:
+      return {
+        ...state,
+        error: action.payload
       }
     default: return state
   }

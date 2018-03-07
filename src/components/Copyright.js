@@ -4,6 +4,8 @@ import {
   AUTHOR,
   GITHUB
 } from '../constants';
+import { Icon } from 'antd';
+import GithubSvg from '../assets/svgs/github-logo.svg';
 
 export default function Copyright({ className }) {
   const classes = classNames('page-copyright', className);
@@ -15,6 +17,11 @@ export default function Copyright({ className }) {
       <p>
         &copy; 2018. ALL RIGHT RESERVED.
       </p>
+      <div className="social">
+        <a href={GITHUB}>
+          <Icon type="github" style={{color: "#fff"}}/>
+        </a>
+      </div>
     </footer>
   )
 }
