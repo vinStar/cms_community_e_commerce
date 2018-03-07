@@ -13,7 +13,6 @@ import {
   Link
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import logo from '../assets/images/logo.png';
 import * as storage from '../utils/storage';
 import {
@@ -47,8 +46,6 @@ export default class Login extends React.Component {
   componentDidMount() {
     const token = storage.getStorage(TOKEN)
     const userId = storage.getStorage(USER_ID)
-    console.log(token)
-    console.log(userId)
     this.setState({
       token,
       userId
