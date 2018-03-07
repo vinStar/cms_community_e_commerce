@@ -4,7 +4,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
-import Login from './containers/Login/index';
+import Login from './containers/Login';
 
 export default class Routes extends React.Component {
   render() {
