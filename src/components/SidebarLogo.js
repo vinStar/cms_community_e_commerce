@@ -8,7 +8,7 @@ const SidebarLogo = () => {
   return (
     <div className="sidebar-logo">
       <img src={logo} alt="..."/>
-      {WEBSITE_NAME}
+      <h2 className="sidebar-logo-content">{WEBSITE_NAME}</h2>
     </div>
   )
 }

@@ -6,12 +6,10 @@ import {
   Icon
 } from 'antd';
 import Navbar from '../components/Navbar';
-import SidebarLogo from '../components/SidebarLogo';
+import Sidebar from '../components/Sidebar';
 
 const {
-  Sider,
   Header,
-  Content
 } = Layout
 
 export default class Home extends React.Component {
@@ -33,27 +31,7 @@ export default class Home extends React.Component {
     return (
       <div className="page">
         <Layout>
-          <Sider
-            trigger={null}
-            collapsible
-            collapsed={this.state.collapsed}
-          >
-            <SidebarLogo />
-            <Menu
-              theme="dark"
-              mode="inline"
-              defaultSelectedKeys={["1"]}
-            >
-              <Menu.Item key="1">
-                <Icon type="user" />
-                <span>user</span>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <Icon type="product" />
-                <span>user</span>
-              </Menu.Item>
-            </Menu>
-          </Sider>
+          <Sidebar collapsed={this.state.collapsed}/>
           <Header>
             <Icon
               className="trigger"
