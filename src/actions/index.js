@@ -3,39 +3,39 @@ import * as Constants from '../constants';
 import utils from '../utils';
 import * as Types from './types';
 
-export function setCurrentUser(user) {
+function setCurrentUser(user) {
   return {
     type: Types.SET_CURRENT_USER,
     user
   }
 }
 
-export function authError(error) {
+function authError(error) {
   return {
     type: Types.AUTH_ERROR,
     payload: error
   }
 }
 
-export function rememberUser() {
+function rememberUser() {
   return {
     type: Types.REMEMBER_USER
   }
 }
 
-export function unRememberUser() {
+function unRememberUser() {
   return {
     type: Types.UN_REMEMBER_USER
   }
 }
 
-export function login(username, password) {
-  let formData = new FormData()
-  formData.append('username', username)
-  formData.append('password', password)
+function signin(username, password) {
   return async (dispatch) => {
       try {
-        const res = await axios.post(`${Constants.API}/tokens`, formData)
+        const res = await axios.post(`${Constants.API}/tokens`, utils.postData({
+          username,
+          password
+        }))
         if (res.status === 200 && res.data.code === 100) {
           const token = res.data.data.token
           const userId = res.data.data.userId
@@ -47,14 +47,27 @@ export function login(username, password) {
           }))
         }
       } catch (err) {
-        dispatch(authError(err))
+        if (err.response.status === 404 && err.response.data.code === -1001) {
+          const errorMessage = err.response.data.message
+          console.log(errorMessage)
+          dispatch(authError(errorMessage))
+        }
       }
   }
 }
 
-export function logout() {
+function signout() {
   return dispatch => {
     utils.removeStorage(Constants.TOKEN)
     dispatch(setCurrentUser({}))
   }
+}
+
+export {
+  setCurrentUser,
+  signin,
+  signout,
+  rememberUser,
+  unRememberUser,
+  authError
 }

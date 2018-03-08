@@ -2,7 +2,7 @@ import * as Types from '../actions/types';
 import { isEmpty } from 'lodash';
 
 const initialState = {
-  error: {},
+  error: '',
   isAuthenticated: false,
   user: {}
 }
@@ -12,6 +12,7 @@ export default (state = initialState, action = {}) => {
     case Types.SET_CURRENT_USER:
       return {
         ...state,
+        error: '',
         isAuthenticated: !isEmpty(action.user),
         user: action.user
       }

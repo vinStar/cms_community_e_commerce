@@ -2,10 +2,12 @@ import {
   getStorage,
   setStorage,
   removeStorage
-} from './storage'
+} from './storage';
+import { postData } from './postData';
 
 export default {
   getStorage,
   setStorage,
-  removeStorage
+  removeStorage,
+  postData
 }

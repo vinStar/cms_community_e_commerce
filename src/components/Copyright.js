@@ -5,7 +5,6 @@ import {
   GITHUB
 } from '../constants';
 import { Icon } from 'antd';
-import GithubSvg from '../assets/svgs/github-logo.svg';
 
 export default function Copyright({ className }) {
   const classes = classNames('page-copyright', className);

@@ -5,56 +5,71 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
+// import storage from '../utils';
+// import {
+//   USER_ID,
+//   TOKEN
+// } from '../constants';
 
-const PrivateRoute = ({ component: ComposedComponent, ...rest}) => {
-
-  function mapStateToProps(state) {
+@connect(
+  state => {
     return {
       isAuthenticated: state.auth.isAuthenticated
     }
   }
+)
+export default class PrivateRoute extends React.Component {
+  static propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired
+  }
 
-  @connect(
-    state => {
-      return {
-        isAuthenticated: state.auth.isAuthenticated
-      }
-    }
-  )
-  class Authentication extends React.Component {
-    static propTypes = {
-      isAuthenticated: PropTypes.bool.isRequired
-    }
+  static state = {
+    isAuthenticated: false
+  }
 
-    handleRender = () => {
-      console.log(this.props)
-      if(this.props.isAuthenticated) {
-        return (
-          <ComposedComponent {...this.props} />
-        )
-      } else {
-        return (
-          <Redirect
-            to={{
-              pathname: '/signin',
-              state: {
-                from: this.props.location,
-                message: '请您先登录，谢谢！'
-              }
-            }}
-          />
-        )
-      }
-    }
+  // componentWillMount() {
+  //   const userId = storage.getStorage(USER_ID)
+  //   const token = storage.getStorage(TOKEN)
 
-    render() {
+  //   if (token && userId) {
+  //     this.setState({
+  //       isAuthenticated: true
+  //     })
+  //   }
+  // }
+
+  handleRender = () => {
+    const {
+      component: ComposedComponent
+    } = this.props
+
+    if(this.props.isAuthenticated) {
       return (
-        <Route {...rest} render={this.handleRender} />
+        <ComposedComponent {...this.props} />
+      )
+    } else {
+      return (
+        <Redirect
+          to={{
+            pathname: '/signin',
+            state: {
+              from: this.props.location,
+              message: '请您先登录，谢谢！'
+            }
+          }}
+        />
       )
     }
   }
 
-  return <Authentication />
-}
+  render() {
+    const {
+      component,
+      ...rest
+    } = this.props
 
-export default PrivateRoute
+    return (
+      <Route {...rest} render={this.handleRender} />
+    )
+  }
+}
