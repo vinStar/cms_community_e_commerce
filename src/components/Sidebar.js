@@ -31,11 +31,23 @@ export default class Sidebar extends React.Component {
         >
           <Menu.Item key="1">
             <Icon type="user" />
-            <span>user</span>
+            <span>用户信息管理</span>
           </Menu.Item>
           <Menu.Item key="2">
-            <Icon type="product" />
-            <span>user</span>
+            <Icon type="table" />
+            <span>商品信息管理</span>
+          </Menu.Item>
+          <Menu.Item key="3">
+            <Icon type="tags-o" />
+            <span>商品分类管理</span>
+          </Menu.Item>
+          <Menu.Item key="4">
+            <Icon type="profile" />
+            <span>订单信息管理</span>
+          </Menu.Item>
+          <Menu.Item key="5">
+            <Icon type="switcher" />
+            <span>广告信息管理</span>
           </Menu.Item>
         </Menu>
       </Sider>

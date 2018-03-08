@@ -1,0 +1,22 @@
+.nav {
+  list-style: none;
+  margin: 0;
+  padding-left: 0.5rem;
+
+  &-item {
+    list-style: none;
+    margin: 0;
+    padding: 0 24px;
+    line-height: 64px;
+    font-size: 1.125rem;
+    cursor: pointer;
+
+    &:first-child {
+      padding: 0;
+
+      .sidebar-trigger {
+        padding: 0 24px;
+      }
+    }
+  }
+}

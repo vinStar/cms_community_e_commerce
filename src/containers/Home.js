@@ -10,6 +10,7 @@ import Sidebar from '../components/Sidebar';
 
 const {
   Header,
+  Content
 } = Layout
 
 export default class Home extends React.Component {
@@ -29,17 +30,17 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <div className="page">
+      <div className="page page-home">
         <Layout>
           <Sidebar collapsed={this.state.collapsed}/>
-          <Header>
-            <Icon
-              className="trigger"
-              type={this.setState.collapsed ? 'menu-unfold': 'menu-fold'}
-              onClick={this.toggleCollapse}
+          <Layout>
+            <Navbar
+              collapsed={this.state.collapsed}
+              handleClick={this.toggleCollapse}
             />
-            <Navbar />
-          </Header>
+            <Content>
+            </Content>
+          </Layout>
         </Layout>
       </div>
     )

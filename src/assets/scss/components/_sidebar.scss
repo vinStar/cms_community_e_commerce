@@ -11,6 +11,7 @@
       color: #fff;
       font-size: 1.25rem;
       margin: 0;
+      transition: 500ms ease-out;
     }
 
     img {
@@ -28,10 +29,20 @@
 
 .ant{
   &-layout-sider {
-    background-color: #21292e;
+    background-color: $dark-color;
+    // width: 260px !important;
+    max-width: 260px !important;
+    // min-width: 260px !important;
   }
 
   &-menu-dark {
-    background-color: #21292e;
+    background-color: transparent;
+  }
+}
+
+.ant-menu.ant-menu-dark {
+  .ant-menu-item-selected {
+    background: rgba(0,0,0,.06);
+    color: #fff;
   }
 }
