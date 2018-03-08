@@ -6,7 +6,8 @@ import {
   TOKEN
 } from '../constants';
 import * as Types from './types';
-import userServices from '../services/userService';
+import authService from '../services/authService';
+import userService from '../services/userService';
 
 function setCurrentUser(user) {
   return {
@@ -53,10 +54,7 @@ function signin(username, password) {
     try {
       dispatch(doLoading())
 
-      const res = await axios.post(`${Constants.API}/tokens`, utils.postData({
-        username,
-        password
-      }))
+      const res = await authService.post(username, password)
 
       dispatch(finishLoading())
 
@@ -107,7 +105,7 @@ function fetchUsers(adminId, token) {
   return async (dispatch) => {
     try {
       dispatch(loadUsers())
-      const res = await userServices.all(adminId, token)
+      const res = await userService.all(adminId, token)
       return dispatch(receiveUsers(res.data.data))
     } catch (err) {
       if (err.response.status === 401) {
