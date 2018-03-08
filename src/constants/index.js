@@ -1,4 +1,5 @@
 export const API = 'http://192.168.191.1:8080/admin/v1';
+export const WEBSITE_NAME = '云生活超市';
 export const AUTHOR = 'gre_yu@163.com';
 export const GITHUB = 'https://github.com/greyu';
 export const USERNAME = 'username';

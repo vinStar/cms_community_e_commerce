@@ -33,7 +33,7 @@ import {
 export default class Routes extends React.Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    setCUrrentUser: PropTypes.func.isRequired
+    setCurrentUser: PropTypes.func.isRequired
   }
 
   componentWillMount() {

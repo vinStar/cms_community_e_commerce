@@ -18,7 +18,8 @@ import logo from '../assets/images/logo.png';
 import * as storage from '../utils/storage';
 import {
   USERNAME,
-  PASSWORD
+  PASSWORD,
+  WEBSITE_NAME
 } from '../constants';
 
 const FormItem = Form.Item;
@@ -33,7 +34,7 @@ const FormItem = Form.Item;
 )
 @Form.create()
 export default class Login extends React.Component {
-  static state = {
+  state = {
     token: '',
     userId: '',
     username: '',
@@ -116,7 +117,7 @@ export default class Login extends React.Component {
             <div className="brand">
               <img src={logo} alt="..."/>
               <h2 className="brand-text">
-                云生活超市
+                {WEBSITE_NAME}
               </h2>
             </div>
             <p>请使用您的账号密码登录系统</p>
