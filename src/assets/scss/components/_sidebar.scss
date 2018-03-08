@@ -1,0 +1,26 @@
+.sidebar {
+  &-logo {
+    height: 64px;
+    line-height: 64px;
+    background: $primary-color;
+    margin-bottom: 30px;
+    padding-left: 1.5rem;
+    color: #fff;
+    font-size: 1.25rem;
+
+    img {
+      height: 2rem;
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+.ant{
+  &-layout-sider {
+    background-color: #21292e;
+  }
+
+  &-menu-dark {
+    background-color: #21292e;
+  }
+}
