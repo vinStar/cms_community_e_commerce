@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import {
   Layout,
   Icon,
@@ -30,8 +31,10 @@ export default class Sidebar extends React.Component {
           defaultSelectedKeys={["1"]}
         >
           <Menu.Item key="1">
-            <Icon type="user" />
-            <span>用户信息管理</span>
+            <Link to="user">
+              <Icon type="user" />
+              <span>用户信息管理</span>
+            </Link>
           </Menu.Item>
           <Menu.Item key="2">
             <Icon type="table" />

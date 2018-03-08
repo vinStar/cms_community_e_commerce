@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Layout,
-  Menu,
-  Icon
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
+import {
+  Layout
 } from 'antd';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
+import User from './User';
 
 const {
-  Header,
   Content
 } = Layout
 
@@ -39,6 +42,11 @@ export default class Home extends React.Component {
               handleClick={this.toggleCollapse}
             />
             <Content>
+              <Router>
+                <Switch>
+                  <Route path="/user" component={User} />
+                </Switch>
+              </Router>
             </Content>
           </Layout>
         </Layout>
