@@ -66,9 +66,7 @@ export default class Login extends React.Component {
 
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
-        this.props.doLoading()
         await this.props.signin(values.username, values.password)
-        this.props.finishLoading()
 
         if (this.props.error) {
           message.error(this.props.error)
@@ -105,7 +103,7 @@ export default class Login extends React.Component {
     return  (isAuthenticated) ? (
         <Redirect
           to={{
-            pathname: '/',
+            pathname: '/users',
             form: {
               from: this.props.location
             }

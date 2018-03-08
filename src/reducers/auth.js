@@ -19,6 +19,8 @@ export default (state = initialState, action = {}) => {
     case Types.AUTH_ERROR:
       return {
         ...state,
+        isAuthenticated: false,
+        user: {},
         error: action.payload
       }
     default: return state
