@@ -8,7 +8,8 @@ export const setStorage = (name, content) => {
 
 export const getStorage = name => {
   if (!name) return
-  return JSON.parse(window.localStorage.getItem(name))
+  // return JSON.parse(window.localStorage.getItem(name))
+  return window.localStorage.getItem(name)
 }
 
 export const removeStorage = name => {

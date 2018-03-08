@@ -1,7 +1,12 @@
 import axios from 'axios';
 import * as Constants from '../constants';
 import utils from '../utils';
+import {
+  USER_ID,
+  TOKEN
+} from '../constants';
 import * as Types from './types';
+import userServices from '../services/userService';
 
 function setCurrentUser(user) {
   return {
@@ -11,6 +16,8 @@ function setCurrentUser(user) {
 }
 
 function authError(error) {
+  utils.removeStorage(USER_ID)
+  utils.removeStorage(TOKEN)
   return {
     type: Types.AUTH_ERROR,
     payload: error
@@ -44,21 +51,30 @@ function finishLoading() {
 function signin(username, password) {
   return async (dispatch) => {
     try {
+      dispatch(doLoading())
+
       const res = await axios.post(`${Constants.API}/tokens`, utils.postData({
         username,
         password
       }))
+
+      dispatch(finishLoading())
+
       if (res.status === 200 && res.data.code === 100) {
         const token = res.data.data.token
         const userId = res.data.data.userId
+
         utils.setStorage(Constants.TOKEN, token)
         utils.setStorage(Constants.USER_ID, userId)
+
         return dispatch(setCurrentUser({
           userId,
           token
         }))
       }
     } catch (err) {
+      dispatch(finishLoading())
+
       if (err.response.status === 404 && err.response.data.code === -1001) {
         const errorMessage = err.response.data.message
         return dispatch(authError(errorMessage))
@@ -74,13 +90,40 @@ function signout() {
   }
 }
 
+function loadUsers() {
+  return {
+    type: Types.LOAD_USERS
+  }
+}
+
+function receiveUsers(users) {
+  return {
+    type: Types.RECEIVE_USERS,
+    users
+  }
+}
+
+function fetchUsers(adminId, token) {
+  return async (dispatch) => {
+    try {
+      dispatch(loadUsers())
+      const res = await userServices.all(adminId, token)
+      return dispatch(receiveUsers(res.data.data))
+    } catch (err) {
+      if (err.response.status === 401) {
+        const errorMessage = '您的登录已过期，请重新登录'
+        return dispatch(authError(errorMessage))
+      }
+    }
+  }
+}
+
 export {
   doLoading,
   finishLoading,
   setCurrentUser,
   signin,
   signout,
-  rememberUser,
-  unRememberUser,
-  authError
+  authError,
+  fetchUsers
 }

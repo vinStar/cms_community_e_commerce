@@ -1,9 +1,15 @@
+import { isEmpty } from 'lodash';
+
 /**
  * use to set data into FormData
  * @param {*} datas
  * @return {*} formData
  */
 export const postData = (datas) => {
+  if (isEmpty(datas)) {
+    return null
+  }
+
   const formData = new FormData()
   const dataName = Object.keys(datas)
 

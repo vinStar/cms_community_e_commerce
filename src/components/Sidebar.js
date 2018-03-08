@@ -31,26 +31,34 @@ export default class Sidebar extends React.Component {
           defaultSelectedKeys={["1"]}
         >
           <Menu.Item key="1">
-            <Link to="user">
+            <Link to="users">
               <Icon type="user" />
               <span>用户信息管理</span>
             </Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Icon type="table" />
-            <span>商品信息管理</span>
+            <Link to="product">
+              <Icon type="table" />
+              <span>商品信息管理</span>
+            </Link>
           </Menu.Item>
           <Menu.Item key="3">
-            <Icon type="tags-o" />
-            <span>商品分类管理</span>
+            <Link to="category">
+              <Icon type="tags-o" />
+              <span>商品分类管理</span>
+            </Link>
           </Menu.Item>
           <Menu.Item key="4">
-            <Icon type="profile" />
-            <span>订单信息管理</span>
+            <Link to="orders">
+              <Icon type="profile" />
+              <span>订单信息管理</span>
+            </Link>
           </Menu.Item>
           <Menu.Item key="5">
-            <Icon type="switcher" />
-            <span>广告信息管理</span>
+            <Link to="advertisments">
+              <Icon type="switcher" />
+              <span>广告信息管理</span>
+            </Link>
           </Menu.Item>
         </Menu>
       </Sider>
