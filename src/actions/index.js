@@ -29,30 +29,41 @@ function unRememberUser() {
   }
 }
 
+function doLoading() {
+  return {
+    type: Types.IS_LOADING
+  }
+}
+
+function finishLoading() {
+  return {
+    type: Types.FINISH_LOADING
+  }
+}
+
 function signin(username, password) {
   return async (dispatch) => {
-      try {
-        const res = await axios.post(`${Constants.API}/tokens`, utils.postData({
-          username,
-          password
+    try {
+      const res = await axios.post(`${Constants.API}/tokens`, utils.postData({
+        username,
+        password
+      }))
+      if (res.status === 200 && res.data.code === 100) {
+        const token = res.data.data.token
+        const userId = res.data.data.userId
+        utils.setStorage(Constants.TOKEN, token)
+        utils.setStorage(Constants.USER_ID, userId)
+        return dispatch(setCurrentUser({
+          userId,
+          token
         }))
-        if (res.status === 200 && res.data.code === 100) {
-          const token = res.data.data.token
-          const userId = res.data.data.userId
-          utils.setStorage(Constants.TOKEN, token)
-          utils.setStorage(Constants.USER_ID, userId)
-          return dispatch(setCurrentUser({
-            userId,
-            token
-          }))
-        }
-      } catch (err) {
-        if (err.response.status === 404 && err.response.data.code === -1001) {
-          const errorMessage = err.response.data.message
-          console.log(errorMessage)
-          dispatch(authError(errorMessage))
-        }
       }
+    } catch (err) {
+      if (err.response.status === 404 && err.response.data.code === -1001) {
+        const errorMessage = err.response.data.message
+        return dispatch(authError(errorMessage))
+      }
+    }
   }
 }
 
@@ -64,6 +75,8 @@ function signout() {
 }
 
 export {
+  doLoading,
+  finishLoading,
   setCurrentUser,
   signin,
   signout,

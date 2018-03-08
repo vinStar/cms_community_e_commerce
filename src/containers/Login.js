@@ -6,19 +6,17 @@ import {
   Input,
   Button,
   Checkbox,
+  Spin,
   message
 } from 'antd';
 import Copyright from '../components/Copyright';
 import {
-  Redirect,
-  Link
+  Redirect
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import logo from '../assets/images/logo.png';
 import * as storage from '../utils/storage';
 import {
-  TOKEN,
-  USER_ID,
   USERNAME,
   PASSWORD
 } from '../constants';
@@ -28,7 +26,8 @@ const FormItem = Form.Item;
 @connect(
   (state) => ({
     error: state.auth.error,
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    isLoading: state.page.isLoading
   }),
   actions
 )
@@ -43,15 +42,18 @@ export default class Login extends React.Component {
 
   static propTypes = {
     error: PropTypes.string.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired
+    isAuthenticated: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired
   }
 
   componentWillMount() {
     if (this.props.location.state) {
       message.warning(this.props.location.state.message)
     }
+
     const username = storage.getStorage(USERNAME)
     const password = storage.getStorage(PASSWORD)
+
     this.setState({
       username,
       password
@@ -63,23 +65,28 @@ export default class Login extends React.Component {
 
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
+        this.props.doLoading()
         await this.props.signin(values.username, values.password)
+        this.props.finishLoading()
+
         if (this.props.error) {
           message.error(this.props.error)
         } else {
           message.success('登陆成功')
         }
+
         if (values.remember === true) {
           storage.setStorage(USERNAME, values.username)
           storage.setStorage(PASSWORD, values.password)
+        } else {
+          storage.removeStorage(USERNAME, values.username)
+          storage.removeStorage(PASSWORD, values.password)
         }
       }
     })
   }
 
   render() {
-    console.log(this.props)
-
     const {
       isAuthenticated,
       form
@@ -159,6 +166,11 @@ export default class Login extends React.Component {
                   type="primary"
                   htmlType="submit"
                 >
+                  {
+                    this.props.isLoading ? (
+                      <Spin />
+                    ) : ''
+                  }
                   登录
                 </Button>
               </FormItem>
