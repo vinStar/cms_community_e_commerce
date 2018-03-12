@@ -28,6 +28,11 @@ const { Body } = Panel
   })
 )
 export default class Users extends React.Component {
+  state = {
+    filteredInfo: null,
+    sortedInfo: null
+  }
+
   static propTypes = {
     adminId: PropTypes.string.isRequired,
     token: PropTypes.string.isRequired,
@@ -40,16 +45,33 @@ export default class Users extends React.Component {
     this.props.fetchUsers(this.props.adminId, this.props.token)
   }
 
+  handleChange = (pagination, filters, sorter) => {
+    this.setState({
+      filteredInfo: filters,
+      sortedInfo: sorter
+    })
+  }
+
   render() {
     const {
-      users,
       isFetching
     } = this.props
+
+    let { users } = this.props
+    let {
+      filteredInfo,
+      sortedInfo
+    } = this.state
+
+    filteredInfo = filteredInfo || {}
+    sortedInfo = sortedInfo || {}
 
     const columns =[{
       title: 'id',
       dataIndex: 'id',
-      key: 'id'
+      key: 'id',
+      sorter: (a, b) => a.id - b.id,
+      sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order
     }, {
       title: '账号',
       dataIndex: 'userName',
@@ -65,7 +87,13 @@ export default class Users extends React.Component {
     }, {
       title: '性别',
       dataIndex: 'sex',
-      key: 'sex'
+      key: 'sex',
+      filters: [
+        { text: '男', value: 'MAN' },
+        { text: '女', value: 'WOMAN' }
+      ],
+      filteredValue: filteredInfo.sex || null,
+      onFilter: (value, recored) => recored.sex === value
     }, {
       title: '操作',
       key: 'action',
@@ -85,13 +113,14 @@ export default class Users extends React.Component {
     return (
       <Panel>
         <Panel.Body>
-          <Spin spinning={isFetching}>
-            <Table
-              dataSource={users}
-              columns={columns}
-              bordered
-            />
-          </Spin>
+          <Table
+            rowKey={record => record.id}
+            dataSource={users}
+            columns={columns}
+            loading={isFetching}
+            bordered
+            onChange={this.handleChange}
+          />
         </Panel.Body>
       </Panel>
     )

@@ -73,6 +73,11 @@ function signin(username, password) {
     } catch (err) {
       dispatch(finishLoading())
 
+      if (err.response === undefined) {
+        const errorMessage = '服务器错误，请稍后再试'
+        return dispatch(authError(errorMessage))
+      }
+
       if (err.response.status === 404 && err.response.data.code === -1001) {
         const errorMessage = err.response.data.message
         return dispatch(authError(errorMessage))
@@ -108,6 +113,10 @@ function fetchUsers(adminId, token) {
       const res = await userService.all(adminId, token)
       return dispatch(receiveUsers(res.data.data))
     } catch (err) {
+      if (err.response === undefined) {
+        const errorMessage = '服务器错误，请稍后再试'
+        return dispatch(authError(errorMessage))
+      }
       if (err.response.status === 401) {
         const errorMessage = '您的登录已过期，请重新登录'
         return dispatch(authError(errorMessage))
