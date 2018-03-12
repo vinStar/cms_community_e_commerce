@@ -16,8 +16,8 @@ const { Body } = Panel
 
 @connect(
   state => ({
-    adminId: state.auth.user.userId,
-    token: state.auth.user.token,
+    adminId: state.auth.admin.adminId,
+    token: state.auth.admin.token,
     isFetching: state.users.isFetching,
     users: state.users.users
   }),
@@ -34,7 +34,7 @@ export default class Users extends React.Component {
   }
 
   static propTypes = {
-    adminId: PropTypes.string.isRequired,
+    adminId: PropTypes.number.isRequired,
     token: PropTypes.string.isRequired,
     isFetching: PropTypes.bool.isRequired,
     users: PropTypes.array.isRequired,
@@ -68,10 +68,10 @@ export default class Users extends React.Component {
 
     const columns =[{
       title: 'id',
-      dataIndex: 'id',
-      key: 'id',
-      sorter: (a, b) => a.id - b.id,
-      sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order
+      dataIndex: 'userId',
+      key: 'userId',
+      sorter: (a, b) => a.userId - b.userId,
+      sortOrder: sortedInfo.columnKey === 'userId' && sortedInfo.order
     }, {
       title: '账号',
       dataIndex: 'userName',

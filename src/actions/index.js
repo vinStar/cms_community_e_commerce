@@ -1,23 +1,22 @@
 import axios from 'axios';
-import * as Constants from '../constants';
 import utils from '../utils';
 import {
-  USER_ID,
+  ADMIN_ID,
   TOKEN
 } from '../constants';
 import * as Types from './types';
 import authService from '../services/authService';
 import userService from '../services/userService';
 
-function setCurrentUser(user) {
+function setCurrentUser(admin) {
   return {
     type: Types.SET_CURRENT_USER,
-    user
+    admin
   }
 }
 
 function authError(error) {
-  utils.removeStorage(USER_ID)
+  utils.removeStorage(ADMIN_ID)
   utils.removeStorage(TOKEN)
   return {
     type: Types.AUTH_ERROR,
@@ -49,30 +48,34 @@ function finishLoading() {
   }
 }
 
+function fetchToken() {
+  return {
+    type: Types.FETCH_TOKEN
+  }
+}
+
 function signin(username, password) {
   return async (dispatch) => {
     try {
-      dispatch(doLoading())
+      dispatch(fetchToken())
 
       const res = await authService.post(username, password)
 
-      dispatch(finishLoading())
-
-      if (res.status === 200 && res.data.code === 100) {
+      if (res.status === 201 && res.data.code === 100) {
         const token = res.data.data.token
-        const userId = res.data.data.userId
+        const adminId = res.data.data.userId
+        console.log(token)
+        console.log(adminId)
 
-        utils.setStorage(Constants.TOKEN, token)
-        utils.setStorage(Constants.USER_ID, userId)
+        utils.setStorage(TOKEN, token)
+        utils.setStorage(ADMIN_ID, adminId)
 
         return dispatch(setCurrentUser({
-          userId,
+          adminId,
           token
         }))
       }
     } catch (err) {
-      dispatch(finishLoading())
-
       if (err.response === undefined) {
         const errorMessage = '服务器错误，请稍后再试'
         return dispatch(authError(errorMessage))
@@ -88,7 +91,7 @@ function signin(username, password) {
 
 function signout() {
   return dispatch => {
-    utils.removeStorage(Constants.TOKEN)
+    utils.removeStorage(TOKEN)
     dispatch(setCurrentUser({}))
   }
 }
@@ -129,6 +132,7 @@ export {
   doLoading,
   finishLoading,
   setCurrentUser,
+  fetchToken,
   signin,
   signout,
   authError,

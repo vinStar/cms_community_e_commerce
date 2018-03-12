@@ -28,7 +28,7 @@ const FormItem = Form.Item;
   (state) => ({
     error: state.auth.error,
     isAuthenticated: state.auth.isAuthenticated,
-    isLoading: state.page.isLoading
+    isFetching: state.auth.isFetching
   }),
   actions
 )
@@ -36,7 +36,7 @@ const FormItem = Form.Item;
 export default class Login extends React.Component {
   state = {
     token: '',
-    userId: '',
+    adminId: '',
     username: '',
     password: ''
   }
@@ -44,7 +44,7 @@ export default class Login extends React.Component {
   static propTypes = {
     error: PropTypes.string.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
-    isLoading: PropTypes.bool.isRequired
+    isFetching: PropTypes.bool.isRequired
   }
 
   componentWillMount() {
@@ -88,6 +88,7 @@ export default class Login extends React.Component {
   render() {
     const {
       isAuthenticated,
+      isFetching,
       form
     } = this.props
 
@@ -166,7 +167,7 @@ export default class Login extends React.Component {
                   htmlType="submit"
                 >
                   {
-                    this.props.isLoading ? (
+                    isFetching ? (
                       <Spin />
                     ) : ''
                   }

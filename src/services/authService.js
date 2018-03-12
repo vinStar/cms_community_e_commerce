@@ -1,13 +1,16 @@
 import axios from 'axios';
-import { API } from '../constants';
+import {
+  ADMIN_API
+} from '../constants';
 import { postData } from '../utils/postData';
 
-const url = `${API}/tokens`
+const url = `${ADMIN_API}/tokens`
 
 const post = async (username, password) => {
+  console.log(url)
   return await axios.post(url, postData({
-    username,
-    password
+    userName: username,
+    passWord: password
   }))
 }
 

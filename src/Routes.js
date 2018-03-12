@@ -11,7 +11,7 @@ import Login from './containers/Login';
 import Home from './containers/Home';
 import * as storage from './utils/storage';
 import {
-  USER_ID,
+  ADMIN_ID,
   TOKEN
 } from './constants';
 import {
@@ -37,12 +37,12 @@ export default class Routes extends React.Component {
   }
 
   componentWillMount() {
-    const userId = storage.getStorage(USER_ID)
+    const adminId = storage.getStorage(ADMIN_ID)
     const token = storage.getStorage(TOKEN)
 
-    if (userId && token) {
+    if (adminId && token) {
       this.props.setCurrentUser({
-        userId,
+        adminId,
         token
       })
     }
