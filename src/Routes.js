@@ -37,7 +37,7 @@ export default class Routes extends React.Component {
   }
 
   componentWillMount() {
-    const adminId = storage.getStorage(ADMIN_ID)
+    const adminId = parseInt(storage.getStorage(ADMIN_ID), 10)
     const token = storage.getStorage(TOKEN)
 
     if (adminId && token) {

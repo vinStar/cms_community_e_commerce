@@ -3,12 +3,12 @@ import {
   routerReducer
 } from 'react-router-redux';
 import auth from './auth';
-import page from './page';
 import users from './users';
+import goods from './goods';
 
 export default combineReducers({
   auth,
-  page,
   users,
+  goods,
   router: routerReducer
 });

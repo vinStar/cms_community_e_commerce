@@ -37,7 +37,7 @@ export default class Sidebar extends React.Component {
             </Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link to="product">
+            <Link to="goods">
               <Icon type="table" />
               <span>商品信息管理</span>
             </Link>

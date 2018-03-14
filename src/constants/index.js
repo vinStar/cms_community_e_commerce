@@ -8,3 +8,5 @@ export const PASSWORD = 'password';
 export const TOKEN = 'token';
 export const ADMIN_ID = 'adminId';
 export const AUTHORIZATION = 'authorization';
+export const DEFAULT_PAGE = 1;
+export const DEFAULT_ROWS = 10;

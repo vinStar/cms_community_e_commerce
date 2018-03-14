@@ -8,6 +8,7 @@ import {
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import Users from './Users';
+import Goods from './Goods';
 
 const {
   Content
@@ -40,6 +41,7 @@ export default class Home extends React.Component {
             />
             <Content>
               <Route path="/users" component={Users} />
+              <Route path="/goods" component={Goods} />
             </Content>
           </Layout>
         </Layout>

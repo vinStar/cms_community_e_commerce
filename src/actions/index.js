@@ -1,4 +1,3 @@
-import axios from 'axios';
 import utils from '../utils';
 import {
   ADMIN_ID,
@@ -7,6 +6,11 @@ import {
 import * as Types from './types';
 import authService from '../services/authService';
 import userService from '../services/userService';
+import {
+  loadGoods,
+  receiveGoods,
+  fetchGoods
+} from './goodAction';
 
 function setCurrentUser(admin) {
   return {
@@ -33,18 +37,6 @@ function rememberUser() {
 function unRememberUser() {
   return {
     type: Types.UN_REMEMBER_USER
-  }
-}
-
-function doLoading() {
-  return {
-    type: Types.IS_LOADING
-  }
-}
-
-function finishLoading() {
-  return {
-    type: Types.FINISH_LOADING
   }
 }
 
@@ -128,13 +120,15 @@ function fetchUsers(adminId, token) {
   }
 }
 
+
 export {
-  doLoading,
-  finishLoading,
   setCurrentUser,
   fetchToken,
   signin,
   signout,
   authError,
-  fetchUsers
+  fetchUsers,
+  loadGoods,
+  fetchGoods,
+  receiveGoods
 }

@@ -1,7 +1,13 @@
-$panel-body-padding           : 1.875rem;
+$panel-header-padding           : 1.875rem;
+$panel-body-padding             : 1.875rem;
 
 .panel {
   height: 100%;
+
+  &-header {
+    padding: $panel-header-padding;
+    padding-bottom: 0;
+  }
 
   &-body {
     padding: $panel-body-padding;

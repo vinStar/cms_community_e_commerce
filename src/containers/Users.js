@@ -114,7 +114,7 @@ export default class Users extends React.Component {
       <Panel>
         <Panel.Body>
           <Table
-            rowKey={record => record.id}
+            rowKey={record => record.userId}
             dataSource={users}
             columns={columns}
             loading={isFetching}
