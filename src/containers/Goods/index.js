@@ -12,6 +12,7 @@ import {
   Modal
 } from 'antd';
 import UpdateGoodModal from './UpdateGoodModal';
+import AddGoodModal from './AddGoodModal';
 
 @connect(
   state => ({
@@ -30,6 +31,7 @@ export default class Goods extends React.Component {
   state = {
     filteredInfo: null,
     sortedInfo: null,
+    addFormVisible: false,
     updateFormVisible: false,
     updateForm: null
   }
@@ -70,6 +72,12 @@ export default class Goods extends React.Component {
     this.props.fetchGoods(adminId, token, pageNum)
   }
 
+  handleAddModalShow = () => {
+    this.setState({
+      addFormVisible: true
+    })
+  }
+
   handleUpdateModalShow = (record) => {
     this.setState({
       updateForm: record,
@@ -79,8 +87,27 @@ export default class Goods extends React.Component {
 
   handleCancel = () => {
     this.setState({
+      addFormVisible: false,
       updateFormVisible: false
     })
+  }
+
+  handleCreate = () => {
+    const form = this.form
+    console.log(form)
+    form.validateFields((err, values) => {
+      if (err) {
+        return ;
+      }
+
+      console.log(values)
+      // form.resetFields();
+
+    })
+  }
+
+  saveFormRef = (form) => {
+    this.form = form
   }
 
   render() {
@@ -183,6 +210,7 @@ export default class Goods extends React.Component {
         <Panel.Header>
           <Button
             type="primary"
+            onClick={this.handleAddModalShow}
           >
             新增商品
           </Button>
@@ -214,10 +242,16 @@ export default class Goods extends React.Component {
               )
             }}
           />
+          <AddGoodModal
+            ref={this.saveFormRef}
+            visible={this.state.addFormVisible}
+            handleCancel={this.handleCancel}
+            handleSubmit={this.handleCreate}
+          />
           <UpdateGoodModal
             visible={this.state.updateFormVisible}
             updateForm={this.state.updateForm}
-            onCancel={this.handleCancel}
+            handleCancel={this.handleCancel}
           />
         </Panel.Body>
       </Panel>
