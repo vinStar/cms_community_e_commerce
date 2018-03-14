@@ -7,8 +7,8 @@ import {
 } from 'antd';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
-import Users from './Users';
-import Goods from './Goods';
+import Users from './Users/index';
+import Goods from './Goods/index';
 
 const {
   Content

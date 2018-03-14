@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Panel from '../components/Panel';
+import Panel from '../../components/Panel';
 import {
   Table,
   Button,
@@ -10,7 +10,7 @@ import {
 } from 'antd';
 import {
   fetchUsers
-} from '../actions';
+} from '../../actions';
 
 const { Body } = Panel
 

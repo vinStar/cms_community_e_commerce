@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   fetchGoods
-} from '../actions/index';
-import Panel from '../components/Panel';
+} from '../../actions/index';
+import Panel from '../../components/Panel';
 import {
   Table,
   Button,
-  Divider
+  Divider,
+  Modal
 } from 'antd';
+import UpdateGoodModal from './UpdateGoodModal';
 
 @connect(
   state => ({
@@ -27,14 +29,18 @@ import {
 export default class Goods extends React.Component {
   state = {
     filteredInfo: null,
-    sortedInfo: null
+    sortedInfo: null,
+    updateFormVisible: false,
+    updateForm: null
   }
 
   static propTypes = {
     adminId: PropTypes.number.isRequired,
     token: PropTypes.string.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    goods: PropTypes.array.isRequired
+    goods: PropTypes.array.isRequired,
+    total: PropTypes.number.isRequired,
+    pageNum: PropTypes.number.isRequired
   }
 
   componentDidMount() {
@@ -62,6 +68,19 @@ export default class Goods extends React.Component {
     } = this.props
 
     this.props.fetchGoods(adminId, token, pageNum)
+  }
+
+  handleUpdateModalShow = (record) => {
+    this.setState({
+      updateForm: record,
+      updateFormVisible: true
+    })
+  }
+
+  handleCancel = () => {
+    this.setState({
+      updateFormVisible: false
+    })
   }
 
   render() {
@@ -118,11 +137,18 @@ export default class Goods extends React.Component {
       render: (text, record) => (
         <span>
           <Button type="primary">
-            入库
+            出库
           </Button>
           <Divider type="vertical" />
-          <Button>
-            出库
+          <Button type="danger">
+            入库
+          </Button>
+          <Divider />
+          <Button
+            type="primary"
+            onClick={() => this.handleUpdateModalShow(record)}
+          >
+            更新
           </Button>
           <Divider type="vertical" />
           <Button
@@ -187,6 +213,11 @@ export default class Goods extends React.Component {
                 />
               )
             }}
+          />
+          <UpdateGoodModal
+            visible={this.state.updateFormVisible}
+            updateForm={this.state.updateForm}
+            onCancel={this.handleCancel}
           />
         </Panel.Body>
       </Panel>
