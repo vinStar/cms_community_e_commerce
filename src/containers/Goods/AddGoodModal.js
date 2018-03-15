@@ -65,6 +65,13 @@ export default class AddGoodMOdal extends React.Component {
     )
   }
 
+  priceValidator = (rule, value, callback) => {
+    if (value <= 0) {
+      callback('价格必须大于0')
+    }
+    callback()
+  }
+
   render() {
     const {
       visible,
@@ -127,7 +134,10 @@ export default class AddGoodMOdal extends React.Component {
                 isRequired: true,
                 message: '请输入商品价格'
               }, {
-
+                max: 10,
+                message: '价格不能超过十位数'
+              }, {
+                validator: this.priceValidator
               }]
             })(
               <Input type="number"/>
@@ -135,18 +145,32 @@ export default class AddGoodMOdal extends React.Component {
           </FormItem>
           <FormItem label="原价:">
             {getFieldDecorator('originalPrice', {
+              rules: [{
+                max: 10,
+                message: '价格不能超过十位数'
+              }, {
+                validator:this.priceValidator
+              }]
             })(
               <Input type="number"/>
             )}
           </FormItem>
           <FormItem label="规格:">
             {getFieldDecorator('spec', {
+              rules: [{
+                isRequired: true ,
+                message: '请输入商品的规格'
+              }]
             })(
               <Input />
             )}
           </FormItem>
           <FormItem label="原产地:">
             {getFieldDecorator('origin', {
+              rules: [{
+                isRequired: true,
+                message: '请输入商品的原产地'
+              }]
             })(
               <Input />
             )}
