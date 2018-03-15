@@ -12,3 +12,4 @@ export const LOAD_GOODS = 'LOAD_GOODS';
 export const RECEIVE_GOODS = 'RECEIVE_GOODS';
 export const CREATE_GOOD = 'CREATE_GOOD';
 export const CREATE_SUCCESS = 'CREATE_SUCCESS';
+export const CREATE_FAILURE = 'CREATE_FAILURE';

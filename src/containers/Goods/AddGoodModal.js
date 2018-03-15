@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   message,
@@ -19,6 +20,14 @@ function getBase64(img, callback) {
 
 @Form.create()
 export default class AddGoodMOdal extends React.Component {
+  static propTypes = {
+    form: PropTypes.object.isRequired,
+    handleCancel: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    visible: PropTypes.bool.isRequired,
+    isUploading: PropTypes.bool.isRequired
+  }
+
   state = {
     loading: false
   }
@@ -59,7 +68,7 @@ export default class AddGoodMOdal extends React.Component {
   renderUploadButton() {
     return (
       <Button>
-        <Icon type={this.state.loading ? 'loading':'plus'} />
+        <Icon type={this.props.upLoading ? 'loading':'plus'} />
         上传图片
       </Button>
     )
@@ -113,7 +122,7 @@ export default class AddGoodMOdal extends React.Component {
           <FormItem label="图片:">
             {getFieldDecorator('image', {
               rules: [{
-                isRequired: true,
+                required: true,
                 message: '请上传商品图片'
               }]
             })(
@@ -131,7 +140,7 @@ export default class AddGoodMOdal extends React.Component {
           <FormItem label="现价:">
             {getFieldDecorator('price', {
               rules: [{
-                isRequired: true,
+                required: true,
                 message: '请输入商品价格'
               }, {
                 max: 10,
@@ -158,7 +167,7 @@ export default class AddGoodMOdal extends React.Component {
           <FormItem label="规格:">
             {getFieldDecorator('spec', {
               rules: [{
-                isRequired: true ,
+                required: true ,
                 message: '请输入商品的规格'
               }]
             })(
@@ -168,7 +177,7 @@ export default class AddGoodMOdal extends React.Component {
           <FormItem label="原产地:">
             {getFieldDecorator('origin', {
               rules: [{
-                isRequired: true,
+                required: true,
                 message: '请输入商品的原产地'
               }]
             })(

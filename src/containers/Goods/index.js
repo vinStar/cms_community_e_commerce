@@ -22,11 +22,13 @@ import AddGoodModal from './AddGoodModal';
     isFetching: state.goods.isFetching,
     goods: state.goods.goods,
     total: state.goods.total,
-    pageNum: state.goods.pageNum
+    pageNum: state.goods.pageNum,
+    message: state.goods.message,
+    isUploading: state.goods.isUploading
   }),
   dispatch => ({
     fetchGoods: (adminId, token, pageNum) => dispatch(fetchGoods(adminId, token, pageNum)),
-    createGood: (good) => dispatch(addGood(good))
+    createGood: (adminId, token, good) => dispatch(addGood(adminId, token, good))
   })
 )
 export default class Goods extends React.Component {
@@ -44,7 +46,11 @@ export default class Goods extends React.Component {
     isFetching: PropTypes.bool.isRequired,
     goods: PropTypes.array.isRequired,
     total: PropTypes.number.isRequired,
-    pageNum: PropTypes.number.isRequired
+    pageNum: PropTypes.number.isRequired,
+    message: PropTypes.string.isRequired,
+    isUploading: PropTypes.bool.isRequired,
+    fetchGoods: PropTypes.func.isRequired,
+    createGood: PropTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -104,8 +110,17 @@ export default class Goods extends React.Component {
         return ;
       }
 
-      // form.resetFields();
+      this.props.createGood(
+        this.props.adminId,
+        this.props.token,
+        values
+      )
 
+      if (this.props.isUploading === false) {
+        this.setState({
+          addFormVisible: false
+        })
+      }
     })
   }
 
@@ -248,6 +263,7 @@ export default class Goods extends React.Component {
           <AddGoodModal
             ref={this.saveFormRef}
             visible={this.state.addFormVisible}
+            isUploading={this.props.isUploading}
             handleCancel={this.handleCancel}
             handleSubmit={this.handleCreate}
           />

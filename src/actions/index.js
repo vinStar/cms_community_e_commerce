@@ -9,7 +9,9 @@ import userService from '../services/userService';
 import {
   loadGoods,
   receiveGoods,
-  fetchGoods
+  fetchGoods,
+  createGood,
+  addGood
 } from './goodAction';
 
 function setCurrentUser(admin) {
@@ -28,15 +30,15 @@ function authError(error) {
   }
 }
 
-function rememberUser() {
+function createSuccess() {
   return {
-    type: Types.REMEMBER_USER
+    type: Types.CREATE_SUCCESS
   }
 }
 
-function unRememberUser() {
+function createFailure() {
   return {
-    type: Types.UN_REMEMBER_USER
+    type: Types.CREATE_FAILURE
   }
 }
 
@@ -122,6 +124,8 @@ function fetchUsers(adminId, token) {
 
 
 export {
+  createSuccess,
+  createFailure,
   setCurrentUser,
   fetchToken,
   signin,
@@ -130,5 +134,7 @@ export {
   fetchUsers,
   loadGoods,
   fetchGoods,
-  receiveGoods
+  receiveGoods,
+  createGood,
+  addGood
 }

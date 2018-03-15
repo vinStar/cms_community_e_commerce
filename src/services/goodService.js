@@ -4,6 +4,7 @@ import {
   DEFAULT_ROWS
 } from '../constants';
 import rest from '../utils/rest';
+import { postData } from '../utils/postData';
 
 const admin_good = `${ADMIN_API}/goods`
 
@@ -16,6 +17,33 @@ const all = async (adminId, token, page = DEFAULT_PAGE, rows = DEFAULT_ROWS) => 
   })
 }
 
+const create = async (
+  adminId,
+  token,
+  categoryId,
+  goodName,
+  price,
+  originalPrice,
+  inventory,
+  spec,
+  origin,
+  imageFile
+) => {
+  return await rest(adminId, token).post(admin_good,
+    postData({
+      categoryId,
+      goodName,
+      price,
+      originalPrice,
+      inventory,
+      spec,
+      origin,
+      imageFile
+    })
+  )
+}
+
 export default {
-  all
+  all,
+  create
 }
