@@ -1,7 +1,9 @@
 import utils from '../utils';
 import {
   LOAD_GOODS,
-  RECEIVE_GOODS
+  RECEIVE_GOODS,
+  CREATE_GOOD,
+  CREATE_SUCCESS
 } from './types';
 import { authError } from './index';
 import goodService from '../services/goodService';
@@ -16,6 +18,12 @@ function receiveGoods(goods) {
   return {
     type: RECEIVE_GOODS,
     goods
+  }
+}
+
+function createGood() {
+  return {
+    type: CREATE_GOOD
   }
 }
 
@@ -38,8 +46,20 @@ function fetchGoods(adminId, token, pageNum) {
   }
 }
 
+function addGood(good) {
+  return async (dispatch) => {
+    try {
+      console.log(good)
+    } catch (err) {
+
+    }
+  }
+}
+
 export {
   loadGoods,
   receiveGoods,
-  fetchGoods
+  fetchGoods,
+  createGood,
+  addGood
 }

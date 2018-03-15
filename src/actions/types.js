@@ -10,3 +10,5 @@ export const LOAD_USERS = 'LOAD_USERS';
 export const RECEIVE_USERS = 'REDCIVE_USERS';
 export const LOAD_GOODS = 'LOAD_GOODS';
 export const RECEIVE_GOODS = 'RECEIVE_GOODS';
+export const CREATE_GOOD = 'CREATE_GOOD';
+export const CREATE_SUCCESS = 'CREATE_SUCCESS';

@@ -1,7 +1,6 @@
 import {
   LOAD_GOODS,
   RECEIVE_GOODS,
-  LOAD_USERS
 } from '../actions/types';
 
 const initialState = {
@@ -25,7 +24,7 @@ export default (state = initialState, action = {}) => {
         isFetching: false,
         goods: action.goods.list,
         pages: action.goods.pages,
-        pageNum: action.goods.pageNUm,
+        pageNum: action.goods.pageNum,
         total: action.goods.total
       }
     default:

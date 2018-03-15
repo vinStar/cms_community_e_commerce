@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  fetchGoods
+  fetchGoods,
+  addGood
 } from '../../actions/index';
 import Panel from '../../components/Panel';
 import {
@@ -24,7 +25,8 @@ import AddGoodModal from './AddGoodModal';
     pageNum: state.goods.pageNum
   }),
   dispatch => ({
-    fetchGoods: (adminId, token, pageNum) => dispatch(fetchGoods(adminId, token, pageNum))
+    fetchGoods: (adminId, token, pageNum) => dispatch(fetchGoods(adminId, token, pageNum)),
+    createGood: (good) => dispatch(addGood(good))
   })
 )
 export default class Goods extends React.Component {
@@ -92,15 +94,16 @@ export default class Goods extends React.Component {
     })
   }
 
-  handleCreate = () => {
+  handleCreate = (e) => {
+    e.preventDefault()
     const form = this.form
-    console.log(form)
+
     form.validateFields((err, values) => {
+      console.log(values)
       if (err) {
         return ;
       }
 
-      console.log(values)
       // form.resetFields();
 
     })
