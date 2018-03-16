@@ -1,5 +1,4 @@
 ## 云生活超市管理系统（完整的后台管理系统）
----
 ##### (项目迭代滚动中，如果有喜欢这个的小哥哥小姐姐，送我一个start，谢谢！如果您有什么建议修改之类的，请疯狂的pull request or create issue.)
 React项目：react + react-router4 +redux
 ### 技术栈
