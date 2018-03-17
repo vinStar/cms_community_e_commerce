@@ -9,7 +9,7 @@ import { postData } from '../utils/postData';
 const admin_good = `${ADMIN_API}/goods`
 
 const all = async (adminId, token, page = DEFAULT_PAGE, rows = DEFAULT_ROWS) => {
-  return await rest(adminId, token).get(admin_good, {
+  return await rest.get(adminId, token)(admin_good, {
     params: {
       page,
       rows
@@ -29,7 +29,7 @@ const create = async (
   origin,
   imageFile
 ) => {
-  return await rest(adminId, token).post(admin_good,
+  return await rest.post(adminId, token)(admin_good,
     postData({
       categoryId,
       goodName,

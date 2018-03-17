@@ -56,11 +56,11 @@ function addGood(adminId, token, good) {
       const res = await goodService.create(
         adminId,
         token,
-        100000,
+        good.categoryId,
         good.goodName,
         good.price,
         good.originalPrice,
-        5,
+        0, // 初始化 0 个商品
         good.spec,
         good.origin,
         good.image.file

@@ -39,6 +39,7 @@ export default class Routes extends React.Component {
   componentWillMount() {
     const adminId = parseInt(storage.getStorage(ADMIN_ID), 10)
     const token = storage.getStorage(TOKEN)
+    console.log(555)
 
     if (adminId && token) {
       this.props.setCurrentUser({

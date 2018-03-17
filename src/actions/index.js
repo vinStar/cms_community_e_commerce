@@ -13,6 +13,9 @@ import {
   createGood,
   addGood
 } from './goodAction';
+import {
+  fetchCategories
+} from './categoryAction';
 
 function setCurrentUser(admin) {
   return {
@@ -60,6 +63,7 @@ function signin(username, password) {
         const adminId = res.data.data.userId
         console.log(token)
         console.log(adminId)
+        console.log(666)
 
         utils.setStorage(TOKEN, token)
         utils.setStorage(ADMIN_ID, adminId)
@@ -136,5 +140,6 @@ export {
   fetchGoods,
   receiveGoods,
   createGood,
-  addGood
+  addGood,
+  fetchCategories
 }

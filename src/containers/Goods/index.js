@@ -156,8 +156,11 @@ export default class Goods extends React.Component {
       key: 'goodName'
     }, {
       title: '图片',
-      dataIndex: 'image',
-      key: 'image'
+      key: 'image',
+      width: '200px',
+      render: (text, record) => (
+        <img src={record.image} style={{width: "200px"}}/>
+      )
     }, {
       title: '价格',
       dataIndex: 'price',

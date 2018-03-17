@@ -9,6 +9,7 @@ import {
   Form,
   Input
 } from 'antd';
+import CategorySelector from '../../components/CategorySelector';
 
 const FormItem = Form.Item
 
@@ -29,7 +30,8 @@ export default class AddGoodMOdal extends React.Component {
   }
 
   state = {
-    loading: false
+    loading: false,
+    uploaded: false
   }
 
   beforeUpload = (file) => {
@@ -45,6 +47,7 @@ export default class AddGoodMOdal extends React.Component {
     }
 
     this.setState({
+      uploaded: true,
       file
     })
 
@@ -67,9 +70,13 @@ export default class AddGoodMOdal extends React.Component {
 
   renderUploadButton() {
     return (
-      <Button>
+      <Button type={this.state.uploaded ? "primary" : "dashed"}>
         <Icon type={this.props.upLoading ? 'loading':'plus'} />
-        上传图片
+        {this.state.uploaded ? (
+          '上传成功'
+        ) : (
+          '上传图片'
+        )}
       </Button>
     )
   }
@@ -88,8 +95,7 @@ export default class AddGoodMOdal extends React.Component {
       handleSubmit,
       form
     } = this.props
-
-    console.log(this.state)
+    console.log(this.props)
 
     const { getFieldDecorator } = form
     const uploadButton = this.renderUploadButton()
@@ -117,6 +123,16 @@ export default class AddGoodMOdal extends React.Component {
               }]
             })(
               <Input type="text"/>
+            )}
+          </FormItem>
+          <FormItem label="商品类别：">
+            {getFieldDecorator('categoryId', {
+              rules: [{
+                required: true,
+                message: '请选择商品类别'
+              }]
+            })(
+              <CategorySelector />
             )}
           </FormItem>
           <FormItem label="图片:">
