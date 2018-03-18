@@ -14,7 +14,8 @@ import CategorySelector from '../../components/CategorySelector';
 import goodService from '@/services/goodService';
 import {
   authError,
-  fetchGoods
+  serviceStart,
+  serviceEnd
 } from '@/actions';
 
 const FormItem = Form.Item
@@ -28,11 +29,13 @@ const FormItem = Form.Item
 @connect(
   state => ({
     adminId: state.auth.admin.adminId,
-    token: state.auth.admin.token
+    token: state.auth.admin.token,
+    inService: state.service.inService
   }),
   dispatch => ({
     authError: (errorMessage) => dispatch(authError(errorMessage)),
-    fetchGoods: () => dispatch(fetchGoods())
+    serviceStart: () => dispatch(serviceStart()),
+    serviceEnd: () => dispatch(serviceEnd())
   })
 )
 @Form.create()
@@ -40,6 +43,7 @@ export default class AddGoodMOdal extends React.Component {
   static propTypes = {
     adminId: PropTypes.number.isRequired,
     token: PropTypes.string.isRequired,
+    inService: PropTypes.bool.isRequired,
     authError: PropTypes.func.isRequired,
     form: PropTypes.object.isRequired,
     handleCancel: PropTypes.func.isRequired,
@@ -49,7 +53,6 @@ export default class AddGoodMOdal extends React.Component {
 
   state = {
     loading: false,
-    uploading: false,
     uploaded: false
   }
 
@@ -105,13 +108,13 @@ export default class AddGoodMOdal extends React.Component {
       adminId,
       token,
       authError,
-      handleSubmit
+      handleSubmit,
+      serviceStart,
+      serviceEnd
     } = this.props
 
     try {
-      this.setState({
-        uploading: true
-      })
+      serviceStart()
 
       const res = await goodService.create(
         adminId,
@@ -119,16 +122,11 @@ export default class AddGoodMOdal extends React.Component {
         good,
         good.image.file
       )
-      this.setState({
-        uploading: false
-      })
+      serviceEnd()
       message.success("添加商品成功")
-      this.props.fetchGoods()
       handleSubmit()
     } catch (err) {
-      this.setState({
-        uploading: false
-      })
+      serviceEnd()
       if (err.response === undefined) {
         const errorMessage = '服务器错误，请稍后再试'
         authError(errorMessage)
@@ -147,7 +145,7 @@ export default class AddGoodMOdal extends React.Component {
   renderUploadButton() {
     return (
       <Button type={this.state.uploaded ? "primary" : "dashed"}>
-        <Icon type={this.state.uploading ? 'loading':'plus'} />
+        <Icon type={this.props.inService ? 'loading':'plus'} />
         {this.state.uploaded ? (
           '上传成功'
         ) : (

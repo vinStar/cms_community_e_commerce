@@ -1,13 +1,11 @@
 import utils from '../utils';
 import {
   LOAD_GOODS,
-  RECEIVE_GOODS,
-  CREATE_GOOD,
+  RECEIVE_GOODS
 } from './types';
+
 import {
   authError,
-  createSuccess,
-  createFailure
 } from './index';
 import goodService from '../services/goodService';
 
@@ -21,12 +19,6 @@ function receiveGoods(goods) {
   return {
     type: RECEIVE_GOODS,
     goods
-  }
-}
-
-function createGood() {
-  return {
-    type: CREATE_GOOD
   }
 }
 
@@ -49,40 +41,6 @@ function fetchGoods(adminId, token, pageNum) {
   }
 }
 
-function addGood(adminId, token, good) {
-  return async (dispatch) => {
-    try {
-      dispatch(createGood())
-      const res = await goodService.create(
-        adminId,
-        token,
-        good.categoryId,
-        good.goodName,
-        good.price,
-        good.originalPrice,
-        0, // 初始化 0 个商品
-        good.spec,
-        good.origin,
-        good.image.file
-      )
-      console.log(res)
-      dispatch(createSuccess())
-    } catch (err) {
-      if (err.response === undefined) {
-        const errorMessage = '服务器错误，请稍后再试'
-        return dispatch(authError(errorMessage))
-      }
-      if (err.response.status === 401) {
-        const errorMessage = '您的登录已过期，请重新登录'
-        return dispatch(authError(errorMessage))
-      }
-      if (err.response.status === 400) {
-        const errorMessage = err.response.data.message
-        return dispatch(createFailure(errorMessage))
-      }
-    }
-  }
-}
 
 export {
   loadGoods,

@@ -97,6 +97,13 @@ export default class Goods extends React.Component {
     this.setState({
       addFormVisible: false
     })
+
+    const {
+      adminId,
+      token,
+      pageNum
+    } = this.props
+    this.props.fetchGoods(adminId, token, pageNum)
   }
 
   render() {

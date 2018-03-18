@@ -21,34 +21,15 @@ import {
   fetchCategories
 } from './categoryAction';
 
-function createSuccess() {
+function serviceStart() {
   return {
-    type: Types.CREATE_SUCCESS
+    type: Types.SERVICE_START
   }
 }
 
-function createFailure() {
+function serviceEnd() {
   return {
-    type: Types.CREATE_FAILURE
-  }
-}
-
-function service() {
-  return {
-    type: Types.SERVICE
-  }
-}
-
-function serviceSuccess() {
-  return {
-    type: Types.SERVICE_SUCCESS
-  }
-}
-
-function serviceFailure(errorMessage) {
-  return {
-    type: Types.SERVICE_FAILURE,
-    payload: errorMessage
+    type: Types.SERVICE_END
   }
 }
 
@@ -86,11 +67,8 @@ function fetchUsers(adminId, token) {
 
 
 export {
-  createSuccess,
-  createFailure,
-  service,
-  serviceSuccess,
-  serviceFailure,
+  serviceStart,
+  serviceEnd,
   setCurrentUser,
   signin,
   signout,
