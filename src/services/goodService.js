@@ -30,27 +30,40 @@ const all = async (adminId, token, page = DEFAULT_PAGE, rows = DEFAULT_ROWS) => 
 const create = async (
   adminId,
   token,
-  category,
+  good,
   imageFile
 ) => {
-  const categoryData = {
+  const goodData = {
     ...DEFAULT,
-    ...category,
+    ...good,
     imageFile
   }
-
-  console.log(categoryData)
 
   return await rest.post(adminId, token)(
     admin_good,
     {
-      ...categoryData,
+      ...goodData,
       imageFile
     }
   )
 }
 
+const update = async (
+  adminId,
+  token,
+  good
+) => {
+  console.log(adminId)
+  console.log(token)
+  console.log(good)
+  return await rest.patch(adminId, token)(
+    `${admin_good}/${good.goodId}`,
+    good
+  )
+}
+
 export default {
   all,
-  create
+  create,
+  update
 }

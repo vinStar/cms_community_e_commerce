@@ -80,6 +80,7 @@ export default class Goods extends React.Component {
   }
 
   handleUpdateModalShow = (record) => {
+    console.log(record)
     this.setState({
       updateForm: record,
       updateFormVisible: true
@@ -96,6 +97,19 @@ export default class Goods extends React.Component {
   handleCreateSuccess = () => {
     this.setState({
       addFormVisible: false
+    })
+
+    const {
+      adminId,
+      token,
+      pageNum
+    } = this.props
+    this.props.fetchGoods(adminId, token, pageNum)
+  }
+
+  handleUpateSuccess = () => {
+    this.setState({
+      updateFormVisible: false
     })
 
     const {
@@ -250,6 +264,7 @@ export default class Goods extends React.Component {
           <UpdateGoodModal
             visible={this.state.updateFormVisible}
             updateForm={this.state.updateForm}
+            handleSubmit={this.handleUpateSuccess}
             handleCancel={this.handleCancel}
           />
         </Panel.Body>
