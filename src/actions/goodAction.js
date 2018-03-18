@@ -87,7 +87,5 @@ function addGood(adminId, token, good) {
 export {
   loadGoods,
   receiveGoods,
-  fetchGoods,
-  createGood,
-  addGood
+  fetchGoods
 }

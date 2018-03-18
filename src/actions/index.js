@@ -16,8 +16,6 @@ import {
   loadGoods,
   receiveGoods,
   fetchGoods,
-  createGood,
-  addGood
 } from './goodAction';
 import {
   fetchCategories
@@ -101,7 +99,5 @@ export {
   loadGoods,
   fetchGoods,
   receiveGoods,
-  createGood,
-  addGood,
   fetchCategories,
 }

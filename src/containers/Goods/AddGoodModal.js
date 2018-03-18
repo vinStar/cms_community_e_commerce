@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   Button,
   message,
@@ -10,27 +11,45 @@ import {
   Input
 } from 'antd';
 import CategorySelector from '../../components/CategorySelector';
+import goodService from '@/services/goodService';
+import {
+  authError,
+  fetchGoods
+} from '@/actions';
 
 const FormItem = Form.Item
 
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
-}
+// function getBase64(img, callback) {
+//   const reader = new FileReader();
+//   reader.addEventListener('load', () => callback(reader.result));
+//   reader.readAsDataURL(img);
+// }
 
+@connect(
+  state => ({
+    adminId: state.auth.admin.adminId,
+    token: state.auth.admin.token
+  }),
+  dispatch => ({
+    authError: (errorMessage) => dispatch(authError(errorMessage)),
+    fetchGoods: () => dispatch(fetchGoods())
+  })
+)
 @Form.create()
 export default class AddGoodMOdal extends React.Component {
   static propTypes = {
+    adminId: PropTypes.number.isRequired,
+    token: PropTypes.string.isRequired,
+    authError: PropTypes.func.isRequired,
     form: PropTypes.object.isRequired,
     handleCancel: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    visible: PropTypes.bool.isRequired,
-    isUploading: PropTypes.bool.isRequired
+    visible: PropTypes.bool.isRequired
   }
 
   state = {
     loading: false,
+    uploading: false,
     uploaded: false
   }
 
@@ -68,10 +87,67 @@ export default class AddGoodMOdal extends React.Component {
   //   }
   // }
 
+  handleSubmit = (e) => {
+    e.preventDefault()
+
+    this.props.form.validateFields((err, values) => {
+      console.log(values)
+      if (err) {
+        return ;
+      }
+
+      this.postGood(values)
+    })
+  }
+
+  postGood = async (good) => {
+    const {
+      adminId,
+      token,
+      authError,
+      handleSubmit
+    } = this.props
+
+    try {
+      this.setState({
+        uploading: true
+      })
+
+      const res = await goodService.create(
+        adminId,
+        token,
+        good,
+        good.image.file
+      )
+      this.setState({
+        uploading: false
+      })
+      message.success("添加商品成功")
+      this.props.fetchGoods()
+      handleSubmit()
+    } catch (err) {
+      this.setState({
+        uploading: false
+      })
+      if (err.response === undefined) {
+        const errorMessage = '服务器错误，请稍后再试'
+        authError(errorMessage)
+      }
+      if (err.response.status === 401) {
+        const errorMessage = '您的登录已过期，请重新登录'
+        authError(errorMessage)
+      }
+      if (err.response.status === 400) {
+        const errorMessage = err.response.data.message
+        message.error(errorMessage)
+      }
+    }
+  }
+
   renderUploadButton() {
     return (
       <Button type={this.state.uploaded ? "primary" : "dashed"}>
-        <Icon type={this.props.upLoading ? 'loading':'plus'} />
+        <Icon type={this.state.uploading ? 'loading':'plus'} />
         {this.state.uploaded ? (
           '上传成功'
         ) : (
@@ -92,10 +168,8 @@ export default class AddGoodMOdal extends React.Component {
     const {
       visible,
       handleCancel,
-      handleSubmit,
       form
     } = this.props
-    console.log(this.props)
 
     const { getFieldDecorator } = form
     const uploadButton = this.renderUploadButton()
@@ -108,7 +182,7 @@ export default class AddGoodMOdal extends React.Component {
         okText="保存"
         cancelText="取消"
         onCancel={handleCancel}
-        onOk={handleSubmit}
+        onOk={this.handleSubmit}
       >
         <Form layout="vertical">
           <FormItem label="商品名称:">

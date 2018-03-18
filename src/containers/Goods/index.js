@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  fetchGoods,
-  addGood
-} from '../../actions/index';
-import Panel from '../../components/Panel';
+  fetchGoods
+} from '@/actions/index';
+import Panel from '@/components/Panel';
 import {
   Table,
   Button,
@@ -22,13 +21,10 @@ import AddGoodModal from './AddGoodModal';
     isFetching: state.goods.isFetching,
     goods: state.goods.goods,
     total: state.goods.total,
-    pageNum: state.goods.pageNum,
-    message: state.goods.message,
-    isUploading: state.goods.isUploading
+    pageNum: state.goods.pageNum
   }),
   dispatch => ({
-    fetchGoods: (adminId, token, pageNum) => dispatch(fetchGoods(adminId, token, pageNum)),
-    createGood: (adminId, token, good) => dispatch(addGood(adminId, token, good))
+    fetchGoods: (adminId, token, pageNum) => dispatch(fetchGoods(adminId, token, pageNum))
   })
 )
 export default class Goods extends React.Component {
@@ -47,10 +43,7 @@ export default class Goods extends React.Component {
     goods: PropTypes.array.isRequired,
     total: PropTypes.number.isRequired,
     pageNum: PropTypes.number.isRequired,
-    message: PropTypes.string.isRequired,
-    isUploading: PropTypes.bool.isRequired,
     fetchGoods: PropTypes.func.isRequired,
-    createGood: PropTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -100,32 +93,10 @@ export default class Goods extends React.Component {
     })
   }
 
-  handleCreate = (e) => {
-    e.preventDefault()
-    const form = this.form
-
-    form.validateFields((err, values) => {
-      console.log(values)
-      if (err) {
-        return ;
-      }
-
-      this.props.createGood(
-        this.props.adminId,
-        this.props.token,
-        values
-      )
-
-      if (this.props.isUploading === false) {
-        this.setState({
-          addFormVisible: false
-        })
-      }
+  handleCreateSuccess = () => {
+    this.setState({
+      addFormVisible: false
     })
-  }
-
-  saveFormRef = (form) => {
-    this.form = form
   }
 
   render() {
@@ -185,11 +156,11 @@ export default class Goods extends React.Component {
       render: (text, record) => (
         <span>
           <Button type="primary">
-            出库
+            入库
           </Button>
           <Divider type="vertical" />
           <Button type="danger">
-            入库
+            出库
           </Button>
           <Divider />
           <Button
@@ -264,11 +235,10 @@ export default class Goods extends React.Component {
             }}
           />
           <AddGoodModal
-            ref={this.saveFormRef}
             visible={this.state.addFormVisible}
             isUploading={this.props.isUploading}
             handleCancel={this.handleCancel}
-            handleSubmit={this.handleCreate}
+            handleSubmit={this.handleCreateSuccess}
           />
           <UpdateGoodModal
             visible={this.state.updateFormVisible}
