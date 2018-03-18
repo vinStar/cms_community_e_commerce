@@ -7,7 +7,7 @@ import {
   ADMIN_ID,
   TOKEN
 } from '../constants';
-import utils from '../utils';
+import * as utils from '../utils';
 import authService from '../services/authService';
 
 function fetchToken() {

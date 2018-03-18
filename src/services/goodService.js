@@ -29,8 +29,9 @@ const create = async (
   origin,
   imageFile
 ) => {
-  return await rest.post(adminId, token)(admin_good,
-    postData({
+  return await rest.post(adminId, token)(
+    admin_good,
+    {
       categoryId,
       goodName,
       price,
@@ -39,7 +40,7 @@ const create = async (
       spec,
       origin,
       imageFile
-    })
+    }
   )
 }
 

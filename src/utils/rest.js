@@ -3,7 +3,10 @@
  */
 import axios from 'axios';
 import { authorization } from './authorization';
-import { patchData } from '@/utils';
+import {
+  postData,
+  patchData
+} from '@/utils';
 
 const post = (adminId, token) => {
   return (url, data) => {
@@ -11,7 +14,7 @@ const post = (adminId, token) => {
       headers: {
         'authorization': authorization(adminId, token)
       }
-    }).post(url, data)
+    }).post(url, postData(data))
   }
 }
 

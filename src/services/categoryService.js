@@ -26,15 +26,17 @@ const all = async (page, rows) => {
 
 
 const create = async (adminId, token, categoryName) => {
-  return await rest.post(adminId, token)(admin_category,
-    postData({
+  return await rest.post(adminId, token)(
+    admin_category,
+    {
       categoryName
-    })
+    }
   )
 }
 
 const update = async (adminId, token, category) => {
-  return await rest.patch(adminId, token)(`${admin_category}/${category.categoryId}`,
+  return await rest.patch(adminId, token)(
+    `${admin_category}/${category.categoryId}`,
     {
       categoryName: category.categoryName
     }
