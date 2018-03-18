@@ -4,14 +4,16 @@ import {
   removeStorage
 } from './storage';
 import { postData } from './postData';
+import patchData from './patchData';
 import { authorization } from './authorization';
 import rest from './rest';
 
-export default {
+export {
   getStorage,
   setStorage,
   removeStorage,
   postData,
+  patchData,
   authorization,
   rest
 }

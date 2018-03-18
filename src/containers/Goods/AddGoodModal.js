@@ -119,7 +119,7 @@ export default class AddGoodMOdal extends React.Component {
               }, {
                 max: 20,
                 min: 1,
-                message: '商品名称不能多于20个字符'
+                message: '商品名称不能超过20个字符'
               }]
             })(
               <Input type="text"/>

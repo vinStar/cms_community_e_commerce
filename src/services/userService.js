@@ -10,7 +10,7 @@ const all = async (adminId, token) => {
 }
 
 const get = async (adminId, token, userId) => {
-  return await rest(adminId, token)(`${admin_url}/${userId}`)
+  return await rest.get(adminId, token)(`${admin_url}/${userId}`)
 }
 
 export default {

@@ -24,18 +24,32 @@ const all = async (page, rows) => {
   }
 }
 
-const post = async (adminId, token, categoryName) => {
-  return rest.post(adminId, token)(admin_category,
+
+const create = async (adminId, token, categoryName) => {
+  return await rest.post(adminId, token)(admin_category,
     postData({
       categoryName
     })
   )
 }
 
-// const patch = async (adminId, token, categoryName) =>{
-//   return rest(adminId, token).patch()
-// }
+const update = async (adminId, token, category) => {
+  return await rest.patch(adminId, token)(`${admin_category}/${category.categoryId}`,
+    {
+      categoryName: category.categoryName
+    }
+  )
+}
+
+const remove = async (adminId, token, categoryId) => {
+  return await rest.remove(adminId, token)(
+    `${admin_category}/${categoryId}`
+  )
+}
 
 export default {
-  all
+  all,
+  create,
+  update,
+  remove
 }

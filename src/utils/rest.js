@@ -3,9 +3,10 @@
  */
 import axios from 'axios';
 import { authorization } from './authorization';
+import { patchData } from '@/utils';
 
 const post = (adminId, token) => {
-  return function (url, data) {
+  return (url, data) => {
     return axios.create({
       headers: {
         'authorization': authorization(adminId, token)
@@ -15,18 +16,22 @@ const post = (adminId, token) => {
 }
 
 const patch = (adminId, token) => {
-  return function (url, data) {
+  return (url, data) => {
     return axios.create({
       headers: {
         'authorization': authorization(adminId, token),
         'Content-Type': 'application/x-www-form-urlencoded'
       }
-    }).patch(url, data)
+    }).patch(url, patchData(data), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
   }
 }
 
 const get = (adminId, token) => {
-  return function (url, params) {
+  return (url, params) => {
     return axios.create({
       headers: {
         'authorization': authorization(adminId, token)
@@ -37,8 +42,19 @@ const get = (adminId, token) => {
   }
 }
 
+const remove = (adminId, token) => {
+  return (url, params) => {
+    return axios.create({
+      headers: {
+        'authorization': authorization(adminId, token)
+      }
+    }).delete(url)
+  }
+}
+
 export default {
   post,
   patch,
-  get
+  get,
+  remove
 }

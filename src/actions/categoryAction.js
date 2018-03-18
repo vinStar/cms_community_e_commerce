@@ -1,8 +1,14 @@
 import {
   LOAD_CATEGORIES,
-  FINISH_CATEGORIES
+  FINISH_CATEGORIES,
+  CREATE_CATEGORY
 } from './types';
-import { authError } from './index';
+import {
+  service,
+  serviceSuccess,
+  serviceFailure,
+  authError
+} from './index';
 import categoryService from '../services/categoryService';
 
 function loadCategories() {
@@ -18,12 +24,17 @@ function finishCategories(categories) {
   }
 }
 
+function createCategory() {
+  return {
+    type: CREATE_CATEGORY
+  }
+}
+
 function fetchCategories() {
   return async (dispatch) => {
     try {
       dispatch(loadCategories())
       const res = await categoryService.all()
-      console.log(res)
       return dispatch(finishCategories(res.data.data))
     } catch (err) {
       // if (err.response === undefined) {
