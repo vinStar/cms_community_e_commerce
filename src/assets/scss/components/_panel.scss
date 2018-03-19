@@ -1,8 +1,10 @@
 $panel-header-padding           : 1.875rem;
 $panel-body-padding             : 1.875rem;
+$panel-footer-padding           : 1.875rem;
 
 .panel {
   height: 100%;
+  // background-color: #fff;
 
   &-header {
     padding: $panel-header-padding;
@@ -11,5 +13,17 @@ $panel-body-padding             : 1.875rem;
 
   &-body {
     padding: $panel-body-padding;
+  }
+
+  &-footer {
+    padding: $panel-footer-padding;
+  }
+
+  &-minus {
+    padding: 0;
+
+    .panel-body {
+      padding: 0;
+    }
   }
 }

@@ -1,7 +1,6 @@
 import {
   ADMIN_API,
-  DEFAULT_PAGE,
-  DEFAULT_ROWS
+  DEFAULT_PAGE
 } from '../constants';
 import rest from '../utils/rest';
 import { postData } from '../utils/postData';
@@ -18,12 +17,10 @@ const DEFAULT = {
   imageFile: ''
 }
 
-const all = async (adminId, token, page = DEFAULT_PAGE, rows = DEFAULT_ROWS) => {
+const all = async (adminId, token, page = DEFAULT_PAGE, rows = 8) => {
   return await rest.get(adminId, token)(admin_good, {
-    params: {
-      page,
-      rows
-    }
+    page: page,
+    rows: rows
   })
 }
 
@@ -53,17 +50,29 @@ const update = async (
   token,
   good
 ) => {
-  console.log(adminId)
-  console.log(token)
-  console.log(good)
   return await rest.patch(adminId, token)(
     `${admin_good}/${good.goodId}`,
     good
   )
 }
 
+const inventory = async (
+  adminId,
+  token,
+  goodId,
+  putInNumber
+) => {
+  return await rest.patch(adminId, token)(
+    `${admin_good}/${goodId}/inventory`,
+    {
+      inventory: putInNumber
+    }
+  )
+}
+
 export default {
   all,
   create,
-  update
+  update,
+  inventory
 }

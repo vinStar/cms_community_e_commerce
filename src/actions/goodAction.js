@@ -1,4 +1,3 @@
-import utils from '../utils';
 import {
   LOAD_GOODS,
   RECEIVE_GOODS
@@ -22,11 +21,11 @@ function receiveGoods(goods) {
   }
 }
 
-function fetchGoods(adminId, token, pageNum) {
+function fetchGoods(adminId, token, pageNum, rows) {
   return async (dispatch) => {
     try {
       dispatch(loadGoods())
-      const res = await goodService.all(adminId, token, pageNum)
+      const res = await goodService.all(adminId, token, pageNum, rows)
       return dispatch(receiveGoods(res.data.data))
     } catch (err) {
       if (err.response === undefined) {

@@ -1,10 +1,4 @@
-import * as utils from '../utils';
-import {
-  ADMIN_ID,
-  TOKEN
-} from '../constants';
 import * as Types from './types';
-import authService from '../services/authService';
 import userService from '../services/userService';
 import {
   setCurrentUser,

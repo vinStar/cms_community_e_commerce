@@ -5,14 +5,21 @@ import {
   fetchGoods
 } from '@/actions/index';
 import Panel from '@/components/Panel';
+import GoodCard from '@/components/GoodCard';
 import {
-  Table,
+  Row,
+  Col,
+  Icon,
+  Layout,
   Button,
-  Divider,
-  Modal
+  Pagination
 } from 'antd';
 import UpdateGoodModal from './UpdateGoodModal';
 import AddGoodModal from './AddGoodModal';
+import BePutInStorage from './BePutInStorage';
+import DecreaseInventory from './DecreaseInventory';
+
+const { Body } = Panel;
 
 @connect(
   state => ({
@@ -33,7 +40,10 @@ export default class Goods extends React.Component {
     sortedInfo: null,
     addFormVisible: false,
     updateFormVisible: false,
-    updateForm: null
+    putInFormVisible: false,
+    decreaseFormVisible: false,
+    currentGood: null,
+    currentPage: 1
   }
 
   static propTypes = {
@@ -79,18 +89,33 @@ export default class Goods extends React.Component {
     })
   }
 
-  handleUpdateModalShow = (record) => {
-    console.log(record)
+  handleUpdateModalShow = (good) => {
     this.setState({
-      updateForm: record,
+      currentGood: good,
       updateFormVisible: true
+    })
+  }
+
+  handlePutInShow = (good) => {
+    this.setState({
+      putInFormVisible: true,
+      currentGood: good
+    })
+  }
+
+  handleDecreaseShow = (good) => {
+    this.setState({
+      decreaseFormVisible: true,
+      currentGood: good
     })
   }
 
   handleCancel = () => {
     this.setState({
       addFormVisible: false,
-      updateFormVisible: false
+      updateFormVisible: false,
+      putInFormVisible: false,
+      decreaseFormVisible: false
     })
   }
 
@@ -120,155 +145,139 @@ export default class Goods extends React.Component {
     this.props.fetchGoods(adminId, token, pageNum)
   }
 
+  handleUpInSuccess = () => {
+    this.setState({
+      putInFormVisible: false
+    })
+
+    this.props.fetchGoods(this.props.adminId, this.props.token, this.props.pageNum)
+  }
+
+  handleDecreaseSuccess = () => {
+    this.setState({
+      decreaseFormVisible: false
+    })
+
+    this.props.fetchGoods(this.props.adminId, this.props.token, this.props.pageNum)
+  }
+
+  renderGood = () => {
+    const goods = this.props.goods ? this.props.goods : []
+    const processedGoods = []
+    const goodList = []
+
+    for (let i = 0, len = goods.length; i < len; i += 3) {
+      if (i === 0) {
+        processedGoods.push([null, ...goods.slice(i, i + 2)])
+        continue
+      }
+
+      processedGoods.push(goods.slice(i - 1, i + 2))
+    }
+
+    processedGoods.map((row, rowId) => {
+      const rows = []
+      row.map((item, itemId) => {
+        if (null !== item) {
+          rows.push(
+            <GoodCard
+              good={item}
+              key={itemId}
+              handleEdit={this.handleUpdateModalShow}
+              handleIncrease={this.handlePutInShow}
+              handleDecrease={this.handleDecreaseShow}
+            />
+          )
+        } else {
+          rows.push(
+            <Col
+              span={8}
+              key={itemId}
+              style={{padding: '8px'}}
+            >
+              <Button
+                className="good-card-add"
+                onClick={this.handleAddModalShow}
+              >
+                <span>
+                  <Icon type="plus" /> 添加商品
+                </span>
+              </Button>
+            </Col>
+          )
+        }
+      })
+
+      goodList.push(
+        <Row gutter={16} key={rowId}>
+          {rows}
+        </Row>
+      )
+    })
+
+    if (goodList.length > 0) {
+      return goodList
+    } else {
+      return null
+    }
+  }
+
   render() {
-    const {
-      isFetching,
-      goods,
-      pageNum,
-      total
-    } = this.props
-
-    let {
-      filteredInfo,
-      sortedInfo
-    } = this.state
-
-    filteredInfo = filteredInfo || {}
-    sortedInfo = sortedInfo || {}
-
-    const columns =[{
-      title: 'id',
-      dataIndex: 'goodId',
-      key: 'goodId',
-      sorter: (a, b) => a.goodId - b.goodId,
-      sortOrder: sortedInfo.columnKey === 'goodId' && sortedInfo.order
-    }, {
-      title: '商品名称',
-      dataIndex: 'goodName',
-      key: 'goodName'
-    }, {
-      title: '图片',
-      key: 'image',
-      width: '200px',
-      render: (text, record) => (
-        <img src={record.image} style={{width: "200px"}}/>
-      )
-    }, {
-      title: '价格',
-      dataIndex: 'price',
-      key: 'price',
-      sorter: (a, b) => a.price - b.price,
-      sortOrder: sortedInfo.columnKey === 'price' && sortedInfo.order
-    }, {
-      title: '原价',
-      dataIndex: 'originalPrice',
-      key: 'originalPrice'
-    }, {
-      title: '库存',
-      dataIndex: 'inventory',
-      key: 'inventory'
-    }, {
-      title: '已售',
-      dataIndex: 'soldCount',
-      key: 'soldCount'
-    }, {
-      title: '操作',
-      key: 'action',
-      render: (text, record) => (
-        <span>
-          <Button type="primary">
-            入库
-          </Button>
-          <Divider type="vertical" />
-          <Button type="danger">
-            出库
-          </Button>
-          <Divider />
-          <Button
-            type="primary"
-            onClick={() => this.handleUpdateModalShow(record)}
-          >
-            更新
-          </Button>
-          <Divider type="vertical" />
-          <Button
-            type="danger"
-          >
-            下架
-          </Button>
-        </span>
-      )
-    }]
-
-    const columns2 = [{
-      title: '分类id',
-      dataIndex: 'categoryId',
-      key: 'categoryId'
-    }, {
-      title: '分类名称',
-      dataIndex: 'category.categoryName',
-      key: 'categoryName'
-    }, {
-      title: '规格',
-      dataIndex: 'spec',
-      key: 'spec'
-    }, {
-      title: '原产地',
-      dataIndex: 'origin',
-      key: 'origin'
-    }]
+    let goodList = this.renderGood()
+    goodList = goodList ? goodList : []
 
     return (
-      <Panel>
-        <Panel.Header>
-          <Button
-            type="primary"
-            onClick={this.handleAddModalShow}
-          >
-            新增商品
-          </Button>
-        </Panel.Header>
-        <Panel.Body>
-          <Table
-            rowKey={record => record.goodId}
-            dataSource={goods}
-            columns={columns}
-            loading={isFetching}
-            bordered
-            onChange={this.handleChange}
-            pagination = {
-              {
-                defaultCurrent: pageNum,
-                total,
-                onChange: this.handlePageChange
-              }
+      <Layout.Content
+        style={{
+          backgroundColor: "transparent"
+        }}
+      >
+        <Panel minus>
+          <Panel.Body>
+            {
+              goodList.length > 0 ? (
+                goodList.map((item) => {
+                  return item
+                })
+              ) : ""
             }
-            expandedRowRender={(record, index) => {
-              const array = [record]
-              return (
-                <Table
-                  rowKey={record => record.goodId}
-                  pagination={false}
-                  dataSource={array}
-                  columns={columns2}
-                />
-              )
-            }}
-          />
-          <AddGoodModal
-            visible={this.state.addFormVisible}
-            isUploading={this.props.isUploading}
-            handleCancel={this.handleCancel}
-            handleSubmit={this.handleCreateSuccess}
-          />
-          <UpdateGoodModal
-            visible={this.state.updateFormVisible}
-            updateForm={this.state.updateForm}
-            handleSubmit={this.handleUpateSuccess}
-            handleCancel={this.handleCancel}
-          />
-        </Panel.Body>
-      </Panel>
-    )
+            <AddGoodModal
+              visible={this.state.addFormVisible}
+              isUploading={this.props.isUploading}
+              handleCancel={this.handleCancel}
+              handleSubmit={this.handleCreateSuccess}
+            />
+            <UpdateGoodModal
+              visible={this.state.updateFormVisible}
+              updateForm={this.state.currentGood}
+              handleSubmit={this.handleUpateSuccess}
+              handleCancel={this.handleCancel}
+            />
+            <BePutInStorage
+              visible={this.state.putInFormVisible}
+              good={this.state.currentGood}
+              handleSubmit={this.handleUpInSuccess}
+              handleCancel={this.handleCancel}
+            />
+            <DecreaseInventory
+              visible={this.state.decreaseFormVisible}
+              good={this.state.currentGood}
+              handleSubmit={this.handleDecreaseSuccess}
+              handleCancel={this.handleCancel}
+            />
+            <Pagination
+              defaultCurrent={this.state.currentPage}
+              total={this.props.total}
+              defaultPageSize={8}
+              onChange={this.handlePageChange}
+              style={{
+                textAlign: 'center',
+                marginTop: '30px'
+              }}
+            />
+          </Panel.Body>
+        </Panel>
+      </Layout.Content>
+    );
   }
 }

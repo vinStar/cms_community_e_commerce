@@ -12,8 +12,6 @@ import {
   fetchUsers
 } from '../../actions';
 
-const { Body } = Panel
-
 @connect(
   state => ({
     adminId: state.auth.admin.adminId,

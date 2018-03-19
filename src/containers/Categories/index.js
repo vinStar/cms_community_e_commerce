@@ -9,12 +9,8 @@ import DeleteCategoryModal from './DeleteCategoryModal';
 import {
   Button,
   Divider,
-  Table,
-  Modal
+  Table
 } from 'antd';
-import categoryService from '@/services/categoryService';
-
-const Confirm = Modal.Confirm
 
 @connect(
   state => ({
@@ -28,6 +24,13 @@ const Confirm = Modal.Confirm
   })
 )
 export default class Categories extends React.Component {
+  static propTypes = {
+    adminId: PropTypes.number.isRequired,
+    token: PropTypes.string.isRequired,
+    categories: PropTypes.array.isRequired,
+    isFetching: PropTypes.bool.isRequired
+  }
+
   state = {
     addFormVisible: false,
     updateFormVisible: false,

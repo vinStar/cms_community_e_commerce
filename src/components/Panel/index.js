@@ -1,10 +1,13 @@
 import React from 'react';
+import classNames from 'classnames';
 import Header from './Header';
 import Body from './Body';
+import Footer from './Footer';
 
 export default class Panel extends React.Component {
   static Header = Header
   static Body = Body
+  static Footer = Footer
 
   static defaultProps = {
     prefixCls: 'panel'
@@ -13,11 +16,20 @@ export default class Panel extends React.Component {
   render() {
     const {
       prefixCls,
-      children
+      children,
+      minus,
+      ...otherProps
     } = this.props
 
+    const classes = classNames(
+      `${prefixCls}-body`,
+      {
+        [`${prefixCls}-minus`]: minus
+      }
+    )
+
     return (
-      <div className={prefixCls}>
+      <div className={classes} {...otherProps}>
         {children}
       </div>
     )

@@ -24,7 +24,7 @@ const FormItem = Form.Item
   })
 )
 @Form.create()
-export default class UpdateGoodModal extends React.Component {
+export default class BePutInStorage extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired,
@@ -43,7 +43,7 @@ export default class UpdateGoodModal extends React.Component {
     this.props.handleCancel()
   }
 
-  handleUpdate = (e) => {
+  handleConfirm = (e) => {
     e.preventDefault()
 
     this.props.form.validateFields((err, values) => {
@@ -52,25 +52,27 @@ export default class UpdateGoodModal extends React.Component {
         return ;
       }
 
-      this.updateGood(values)
+      this.putIn(values.putInNumber)
     })
   }
 
-  updateGood = async (good) => {
+  putIn = async (putInNumber) => {
     const {
       adminId,
       token,
       handleSubmit,
-      authError
+      authError,
+      good
     } = this.props
 
     try {
-      const res = await goodService.update(
+      const res = await goodService.inventory(
         adminId,
         token,
-        good
+        good.goodId,
+        putInNumber
       )
-      message.success("修改成功")
+      message.success("入库成功")
       handleSubmit()
       this.props.form.resetFields()
     } catch (err) {
@@ -97,43 +99,21 @@ export default class UpdateGoodModal extends React.Component {
     } = this.props
 
     const { getFieldDecorator } = form
-    let updateForm = this.props.updateForm || {}
+    let good = this.props.good || {}
 
     return (
       <Modal
         visible={visible}
-        title="更新商品"
-        okText="更新"
+        title={`${good.goodName} 入库`}
+        okText="入库"
         cancelText="取消"
         onCancel={this.handleCancel}
-        onOk={this.handleUpdate}
+        onOk={this.handleConfirm}
       >
         <Form layout="vertical">
-          <FormItem label="商品id:">
-            {getFieldDecorator('goodId', {
-              initialValue: updateForm.goodId || ''
-            })(
-              <Input disabled />
-            )}
-          </FormItem>
-          <FormItem label="商品名称:">
-            {getFieldDecorator('goodName', {
-              initialValue: updateForm.goodName || '',
-              rules: [{
-                isRequired: true,
-                message: '请输入商品名称'
-              }, {
-                max: 20,
-                min: 1,
-                message: '商品名称不能超过20个字符'
-              }]
-            })(
-              <Input type="text" />
-            )}
-          </FormItem>
-          <FormItem label="现价:">
+          <FormItem label="库存:">
             {getFieldDecorator('price', {
-              initialValue: '' + updateForm.price || '',
+              initialValue: '' + good.price || '',
               rules: [{
                 isRequired: true,
                 message: '请输入商品价格'
@@ -143,12 +123,12 @@ export default class UpdateGoodModal extends React.Component {
                 message: '商品价格不能超过10位数'
               }]
             })(
-              <Input type="number"/>
+              <Input type="number" disabled/>
             )}
           </FormItem>
-          <FormItem label="原价:">
-            {getFieldDecorator('originalPrice', {
-              initialValue: '' + updateForm.originalPrice || '',
+          <FormItem label="入库数量:">
+            {getFieldDecorator('putInNumber', {
+              initialValue: 0,
               rules: [{
                 isRequired: true,
                 message: '请输入商品价格'
@@ -159,28 +139,6 @@ export default class UpdateGoodModal extends React.Component {
               }]
             })(
               <Input type="number"/>
-            )}
-          </FormItem>
-          <FormItem label="规格:">
-            {getFieldDecorator('spec', {
-              initialValue: updateForm.spec || '',
-              rules: [{
-                isRequired: true,
-                message: '请输入商品规格'
-              }]
-            })(
-              <Input />
-            )}
-          </FormItem>
-          <FormItem label="原产地:">
-            {getFieldDecorator('origin', {
-              initialValue: updateForm.origin || '',
-              rules: [{
-                isRequired: true,
-                message: '请输入商品的原产地'
-              }]
-            })(
-              <Input />
             )}
           </FormItem>
         </Form>

@@ -69,3 +69,11 @@ h3 {
     vertical-align: middle;
   }
 }
+
+.active-color {
+  color: $highlight-color;
+}
+
+.warning-color {
+  color: $warning-color;
+}

@@ -8,7 +8,7 @@ $prefix                     : "yu";
 $primary-color              : #1890ff;
 $success-color              : #52c41a;
 $error-color                : #f5222d;
-$hightlight-color           : #f5222d;
+$highlight-color            : #f5222d;
 $warning-color              : #faad14;
 $white-color                : #fff;
 $black-color                : #000;
@@ -54,3 +54,5 @@ $screen-xs                  : 576px;
 $screen-sm                  : 768px;
 $screen-md                  : 992px;
 $screen-lg                  : 1280px;
+
+$box-shadow-base         : 0 2px 8px rgba(0, 0, 0, 0.09);
