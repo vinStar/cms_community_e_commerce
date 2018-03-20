@@ -7,6 +7,7 @@ import {
   postData,
   patchData
 } from '@/utils';
+import qs from 'qs';
 
 const post = (adminId, token) => {
   return (url, data) => {

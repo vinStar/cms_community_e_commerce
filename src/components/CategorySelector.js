@@ -24,7 +24,8 @@ export default class CategorySelector extends React.Component {
   static defaultProps = {
     isFetching: PropTypes.bool.isRequired,
     categories: PropTypes.array.isRequired,
-    getCategories: PropTypes.func.isRequired
+    getCategories: PropTypes.func.isRequired,
+    allItem: PropTypes.bool.isRequired
   }
 
   constructor(props) {
@@ -66,8 +67,6 @@ export default class CategorySelector extends React.Component {
 
   triggerChange = (changedValue) => {
     const onChange = this.props.onChange;
-    console.log(6666666666666666)
-    console.log(changedValue)
     if (onChange) {
       onChange(changedValue)
     }
@@ -76,8 +75,10 @@ export default class CategorySelector extends React.Component {
   render() {
     const {
       categories,
-      isFetching
+      isFetching,
+      allItem
     } = this.props
+    const value = this.state.value
 
     if (categories.length === 0) {
       return (
@@ -94,11 +95,18 @@ export default class CategorySelector extends React.Component {
           showSearch
           style={{ width: 200 }}
           // placeholder="请选择一个分类"
-          defaultValue={this.state.value}
+          value={value}
           optionFilterProp="children"
           onChange={this.handleChange}
           filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
         >
+          {
+            allItem ? (
+              <Option value="all">
+                全部
+              </Option>
+            ) : ""
+          }
           {
             categories.map(item => (
               <Option value={item.categoryId} key={item.categoryId}>

@@ -70,10 +70,28 @@ h3 {
   }
 }
 
+.ant-layout-header {
+  border: 1px solid $border-color-base;
+}
+
 .active-color {
   color: $highlight-color;
 }
 
 .warning-color {
   color: $warning-color;
+}
+
+.form {
+  &-search {
+    .ant-form-item {
+      display: flex;
+    }
+  }
+
+  &-flex-wrapper {
+    .ant-form-item-control-wrapper {
+      flex: 1;
+    }
+  }
 }

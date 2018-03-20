@@ -17,11 +17,22 @@ const DEFAULT = {
   imageFile: ''
 }
 
-const all = async (adminId, token, page = DEFAULT_PAGE, rows = 8) => {
-  return await rest.get(adminId, token)(admin_good, {
-    page: page,
-    rows: rows
-  })
+const all = async (adminId, token, good, page = DEFAULT_PAGE, rows = 8) => {
+  if (good) {
+    return await rest.get(adminId, token)(admin_good, {
+      page: page,
+      rows: rows,
+      goodId: good.goodId,
+      goodName: good.goodName,
+      categoryId: good.categoryId,
+      goodStatus: good.status
+    })
+  } else {
+    return await rest.get(adminId, token)(admin_good, {
+      page: page,
+      rows: rows
+    })
+  }
 }
 
 const create = async (

@@ -45,11 +45,14 @@ export default class GoodCard extends React.Component {
         <Card
           className="good-card"
           cover={
-            <img
-              style={{height: '300px'}}
-              src={good.image}
-              alt="商品图片"
-            />
+            <div
+              className="good-card-img"
+            >
+              <img
+                src={good.image}
+                alt="商品图片"
+              />
+            </div>
           }
           hoverable
           actions={

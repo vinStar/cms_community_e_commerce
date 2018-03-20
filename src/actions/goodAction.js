@@ -21,11 +21,11 @@ function receiveGoods(goods) {
   }
 }
 
-function fetchGoods(adminId, token, pageNum, rows) {
+function fetchGoods(adminId, token, good, pageNum, rows) {
   return async (dispatch) => {
     try {
       dispatch(loadGoods())
-      const res = await goodService.all(adminId, token, pageNum, rows)
+      const res = await goodService.all(adminId, token, good, pageNum, rows)
       return dispatch(receiveGoods(res.data.data))
     } catch (err) {
       if (err.response === undefined) {

@@ -18,6 +18,7 @@ import UpdateGoodModal from './UpdateGoodModal';
 import AddGoodModal from './AddGoodModal';
 import BePutInStorage from './BePutInStorage';
 import DecreaseInventory from './DecreaseInventory';
+import SelectorHeader from './SelectorHeader';
 
 const { Body } = Panel;
 
@@ -31,7 +32,7 @@ const { Body } = Panel;
     pageNum: state.goods.pageNum
   }),
   dispatch => ({
-    fetchGoods: (adminId, token, pageNum) => dispatch(fetchGoods(adminId, token, pageNum))
+    fetchGoods: (adminId, token, good, pageNum) => dispatch(fetchGoods(adminId, token, good, pageNum))
   })
 )
 export default class Goods extends React.Component {
@@ -43,6 +44,7 @@ export default class Goods extends React.Component {
     putInFormVisible: false,
     decreaseFormVisible: false,
     currentGood: null,
+    searchGood: null,
     currentPage: 1
   }
 
@@ -62,9 +64,25 @@ export default class Goods extends React.Component {
       token,
       pageNum
     } = this.props
+    const { searchGood } = this.state
 
     // fetch good information
-    this.props.fetchGoods(adminId, token, pageNum)
+    this.props.fetchGoods(adminId, token, searchGood, pageNum)
+  }
+
+  handleSelectorChange = (values) => {
+    this.setState({
+      searchGood: values
+    })
+
+    const {
+      adminId,
+      token,
+      pageNum
+    } = this.props
+
+    // fetch good information
+    this.props.fetchGoods(adminId, token, values, pageNum)
   }
 
   handleChange = (pagination, filters, sorter) => {
@@ -124,12 +142,7 @@ export default class Goods extends React.Component {
       addFormVisible: false
     })
 
-    const {
-      adminId,
-      token,
-      pageNum
-    } = this.props
-    this.props.fetchGoods(adminId, token, pageNum)
+    this.fetchGoods()
   }
 
   handleUpateSuccess = () => {
@@ -137,12 +150,7 @@ export default class Goods extends React.Component {
       updateFormVisible: false
     })
 
-    const {
-      adminId,
-      token,
-      pageNum
-    } = this.props
-    this.props.fetchGoods(adminId, token, pageNum)
+    this.fetchGoods()
   }
 
   handleUpInSuccess = () => {
@@ -150,7 +158,7 @@ export default class Goods extends React.Component {
       putInFormVisible: false
     })
 
-    this.props.fetchGoods(this.props.adminId, this.props.token, this.props.pageNum)
+    this.fetchGoods()
   }
 
   handleDecreaseSuccess = () => {
@@ -158,7 +166,17 @@ export default class Goods extends React.Component {
       decreaseFormVisible: false
     })
 
-    this.props.fetchGoods(this.props.adminId, this.props.token, this.props.pageNum)
+    this.fetchGoods()
+  }
+
+  fetchGoods = () => {
+    const {
+      adminId,
+      token,
+      pageNum
+    } = this.props
+    const { searchGood } = this.state
+    this.props.fetchGoods(adminId, token, searchGood, pageNum)
   }
 
   renderGood = () => {
@@ -233,6 +251,9 @@ export default class Goods extends React.Component {
         }}
       >
         <Panel minus>
+          <SelectorHeader
+            handleSelectorChange={this.handleSelectorChange}
+          />
           <Panel.Body>
             {
               goodList.length > 0 ? (
