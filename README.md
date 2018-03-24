@@ -39,19 +39,22 @@ npm start
 5. ***服务器监听3000端口，直接访问 http://localhost:3000***
 
 ### 目录结构介绍
-***├── config                              // webpack配置文件<br>
-***├── public                              ***  <br>
-***├── dist                                ***  <br>
-***├── node_modules                        // 项目的包依赖*** <br>    
-***├── src                                 // 源码目录***    <br>
-***│   ├── assets                          // 存放项目的一些资源和SCSS文件***  <br>
-***│   ├── components                      // 页面组件***  <br>
-***│   ├── containers                      // 页面（容器） ***<br>
-***│   ├── constants                       // 项目全局配置***  <br>
-***│   ├── services                        // 服务器端接口数据映射***  <br>
-***│   ├── reducers                        // reducers***  <br>
-***│   ├── actions                         // actions***  <br>
-***│   ├── utils                           // 封装的一些常用工具 ***  <br>
-***│   ├── Routes.js                       // 页面路由 ***  <br>
-***│   ├── index.js                        // 程序入口文件，加载各种公共组件***  <br>
-***├── .babelrc                            // babel配置文件 ***  <br>
+```js
+### 目录结构介绍
+***├── config                              // webpack配置文件***  
+***├── public                              ***  
+***├── dist                                ***  
+***├── node_modules                        // 项目的包依赖***  
+***├── src                                 // 源码目录***  
+***│   ├── assets                          // 存放项目的一些资源和SCSS文件***  
+***│   ├── components                      // 页面组件***  
+***│   ├── containers                      // 页面（容器） ***
+***│   ├── constants                       // 项目全局配置***  
+***│   ├── services                        // 服务器端接口数据映射***  
+***│   ├── reducers                        // reducers***  
+***│   ├── actions                         // actions***  
+***│   ├── utils                           // 封装的一些常用工具 ***  
+***│   ├── Routes.js                       // 页面路由 ***  
+***│   ├── index.js                        // 程序入口文件，加载各种公共组件***  
+***├── .babelrc                             // babel配置文件 ***  
+```
