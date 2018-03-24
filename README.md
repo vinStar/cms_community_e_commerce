@@ -56,5 +56,5 @@ npm start
 ***│   ├── utils                           // 封装的一些常用工具 ***  
 ***│   ├── Routes.js                       // 页面路由 ***  
 ***│   ├── index.js                        // 程序入口文件，加载各种公共组件***  
-***├── .babelrc                             // babel配置文件 ***  
+***├── .babelrc                            // babel配置文件 ***  
 ```
