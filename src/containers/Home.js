@@ -10,6 +10,7 @@ import Sidebar from '../components/Sidebar';
 import Users from './Users/index';
 import Goods from './Goods/index';
 import Categories from './Categories/index';
+import Orders from './Orders/index';
 
 export default class Home extends React.Component {
   state = {
@@ -39,6 +40,7 @@ export default class Home extends React.Component {
             <Route path="/users" component={Users} />
             <Route path="/goods" component={Goods} />
             <Route path="/categories" component={Categories} />
+            <Route path="/orders" component={Orders} />
           </Layout>
         </Layout>
       </div>

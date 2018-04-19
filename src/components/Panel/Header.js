@@ -1,12 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export default function Header(props) {
+function Header(props) {
   const {
     children,
+    className,
+    type,
+    prefixCls,
     ...otherProps
   } = props
-  const prefixCls = 'panel'
-  const classes = `${prefixCls}-header`
+
+  const classes = classNames(
+    className,
+    `${prefixCls}-header`,
+    {
+      [`${prefixCls}-light`]: type === 'light'
+    }
+  )
 
   return (
     <header className={classes} {...otherProps}>
@@ -14,3 +25,14 @@ export default function Header(props) {
     </header>
   )
 }
+
+Header.defaultProps = {
+  prefixCls: 'panel'
+}
+
+Header.propTypes = {
+  type: PropTypes.string,
+  className: PropTypes.string
+}
+
+export default Header;

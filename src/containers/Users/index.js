@@ -6,6 +6,8 @@ import {
   Table,
   Button,
   Divider,
+  Layout,
+  Breadcrumb,
   Spin
 } from 'antd';
 import {
@@ -109,18 +111,28 @@ export default class Users extends React.Component {
     }]
 
     return (
-      <Panel>
-        <Panel.Body>
-          <Table
-            rowKey={record => record.userId}
-            dataSource={users}
-            columns={columns}
-            loading={isFetching}
-            bordered
-            onChange={this.handleChange}
-          />
-        </Panel.Body>
-      </Panel>
+      <Layout.Content>
+        <Panel minus>
+          <Panel.Header type="light">
+            <Breadcrumb>
+              <Breadcrumb.Item>主页</Breadcrumb.Item>
+              <Breadcrumb.Item>用户列表</Breadcrumb.Item>
+            </Breadcrumb>
+            <h2>用户列表</h2>
+            <p>用户信息展示，可以进行修改用户个人信息，修改用户密码操作</p>
+          </Panel.Header>
+          <Panel.Body type="light">
+            <Table
+              rowKey={record => record.userId}
+              dataSource={users}
+              columns={columns}
+              loading={isFetching}
+              bordered
+              onChange={this.handleChange}
+            />
+          </Panel.Body>
+        </Panel>
+      </Layout.Content>
     )
   }
 }
