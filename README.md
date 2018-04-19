@@ -11,9 +11,9 @@ React后台项目：react + react-router4 + redux + antd + axios + sass
 6. sass
 7. es6 + babel ( 配了babel-plugin-transform-decorator-legacy 装饰器)
 
-使用了create-react-app搭建项目。 服务器端我是用springboot+mybatis编写的，项目源代码也在我的github上，地址是：[服务器端代码](https://github.com/greyu/backend_cloud_commodity)
+使用了create-react-app搭建项目。 服务器端我是用springboot+mybatis编写的，仓库地址是：[服务器端代码](https://github.com/greyu/backend_cloud_commodity)
 
-作者想说：其实是想用React-native做一个超市的app，取名云生活超市（名字很难听各位轻吐槽），既然有app，那就得有一个后台，就是这个了。
+作者想说：其实是想用React-native做一个超市的app，取名云生活超市（名字很难听各位轻吐槽），既然有app，那就得有一个后台，就是这个了。附上app端仓库地址：[云生活app](https://github.com/greyu/community_e_commerce)
 
 ### 环境
 * 我自己使用ubuntu16.04，建议在linux或者mac os系统下运行
@@ -39,3 +39,22 @@ npm start
 5. ***服务器监听3000端口，直接访问 http://localhost:3000***
 
 ### 目录结构介绍
+```js
+### 目录结构介绍
+***├── config                              // webpack配置文件***  
+***├── public                              ***  
+***├── dist                                ***  
+***├── node_modules                        // 项目的包依赖***  
+***├── src                                 // 源码目录***  
+***│   ├── assets                          // 存放项目的一些资源和SCSS文件***  
+***│   ├── components                      // 页面组件***  
+***│   ├── containers                      // 页面（容器） ***
+***│   ├── constants                       // 项目全局配置***  
+***│   ├── services                        // 服务器端接口数据映射***  
+***│   ├── reducers                        // reducers***  
+***│   ├── actions                         // actions***  
+***│   ├── utils                           // 封装的一些常用工具 ***  
+***│   ├── Routes.js                       // 页面路由 ***  
+***│   ├── index.js                        // 程序入口文件，加载各种公共组件***  
+***├── .babelrc                            // babel配置文件 ***  
+```
