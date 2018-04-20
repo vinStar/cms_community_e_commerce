@@ -14,8 +14,8 @@ export default class extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     icon: PropTypes.node,
-    info: PropTypes.string.isRequired,
-    desc: PropTypes.desc
+    info: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    desc: PropTypes.string
   }
 
   render() {

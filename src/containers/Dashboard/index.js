@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Layout,
+  Tabs,
   Row,
   Col,
   Icon,
@@ -50,10 +51,12 @@ export default class Dashboard extends React.Component {
           </Col>
         </Row>
         <Panel style={{marginTop: '30px'}}>
-          <Panel.Header type="light">
-            <h2>待处理订单</h2>
-          </Panel.Header>
           <Panel.Body type="light">
+          <Tabs defaultActiveKey="1">
+            <Tabs.TabPane tab="订单概要" key="1">Content of Tab Pane 1</Tabs.TabPane>
+            <Tabs.TabPane tab="转化率" key="2">Content of Tab Pane 2</Tabs.TabPane>
+            {/* <Tabs.TabPane tab="Tab 3" key="3">Content of Tab Pane 3</Tabs.TabPane> */}
+          </Tabs>
           </Panel.Body>
         </Panel>
       </Layout.Content>
