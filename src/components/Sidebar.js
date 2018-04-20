@@ -45,6 +45,12 @@ export default class Sidebar extends React.Component {
           defaultSelectedKeys={["1"]}
           onClick={this.handleClick}
         >
+          <Menu.Item key="0">
+            <Link to="/dashboard">
+              <Icon type="dashboard" />
+              <span>主页</span>
+            </Link>
+          </Menu.Item>
           <Menu.Item key="1">
             <Link to="users">
               <Icon type="user" />
