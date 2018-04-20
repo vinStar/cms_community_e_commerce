@@ -104,7 +104,7 @@ export default class Login extends React.Component {
     return  (isAuthenticated) ? (
         <Redirect
           to={{
-            pathname: '/users',
+            pathname: '/dashboard',
             form: {
               from: this.props.location
             }

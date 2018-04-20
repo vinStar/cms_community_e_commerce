@@ -10,6 +10,8 @@ import {
 } from 'antd';
 import MetaBox from '@/components/MetaBox';
 import Panel from '@/components/Panel';
+import OrderCharts from './OrderCharts';
+import ConversionCharts from './ConversionCharts';
 
 export default class Dashboard extends React.Component {
   render() {
@@ -28,7 +30,7 @@ export default class Dashboard extends React.Component {
           <Col className="gutter-row" span={6}>
             <MetaBox
               title="待发货"
-              info={toThousands(32)}
+              info={10}
               desc="今日新增： 27"
             >
             </MetaBox>
@@ -36,7 +38,7 @@ export default class Dashboard extends React.Component {
           <Col className="gutter-row" span={6}>
             <MetaBox
               title="购物车收藏数"
-              info={632}
+              info={toThousands(4920)}
               desc="今日新增： 83"
             >
             </MetaBox>
@@ -44,21 +46,32 @@ export default class Dashboard extends React.Component {
           <Col className="gutter-row" span={6}>
             <MetaBox
               title="成交笔数"
-              info={115}
+              info={320}
               desc="今日新增： 20"
             >
             </MetaBox>
           </Col>
         </Row>
-        <Panel style={{marginTop: '30px'}}>
+        {/* <Panel style={{marginTop: '30px'}}>
           <Panel.Body type="light">
-          <Tabs defaultActiveKey="1">
-            <Tabs.TabPane tab="订单概要" key="1">Content of Tab Pane 1</Tabs.TabPane>
-            <Tabs.TabPane tab="转化率" key="2">Content of Tab Pane 2</Tabs.TabPane>
-            {/* <Tabs.TabPane tab="Tab 3" key="3">Content of Tab Pane 3</Tabs.TabPane> */}
-          </Tabs>
+            <Tabs defaultActiveKey="1">
+              <Tabs.TabPane tab="订单概要" key="1">
+                <OrderCharts />
+              </Tabs.TabPane>
+              <Tabs.TabPane tab="收藏转化率" key="2">
+                <ConversionCharts />
+              </Tabs.TabPane>
+            </Tabs>
           </Panel.Body>
-        </Panel>
+        </Panel> */}
+        <Row gutter={24} style={{marginTop: '30px'}}>
+          <Col span={12} style={{bakcground: '#fff'}}>
+            <OrderCharts />
+          </Col>
+          <Col span={12}>
+            <ConversionCharts />
+          </Col>
+        </Row>
       </Layout.Content>
     )
   }
