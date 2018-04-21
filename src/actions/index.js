@@ -14,6 +14,9 @@ import {
 import {
   fetchCategories
 } from './categoryAction';
+import {
+  getAllOrders
+} from './orderAction';
 
 function serviceStart() {
   return {
@@ -72,4 +75,5 @@ export {
   fetchGoods,
   receiveGoods,
   fetchCategories,
+  getAllOrders
 }
