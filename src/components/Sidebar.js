@@ -49,7 +49,7 @@ export default class Sidebar extends React.Component {
           <Item key="0">
             <Link to="/dashboard">
               <Icon type="dashboard" />
-              <span>主页</span>
+              <span>dashboard</span>
             </Link>
           </Item>
           <Item key="1">
@@ -59,46 +59,46 @@ export default class Sidebar extends React.Component {
             </Link>
           </Item>
           <Item key="2">
-            <Link to="goods">
+            <Link to="/goods">
               <Icon type="table" />
               <span>商品信息管理</span>
             </Link>
           </Item>
-          <Item key="3">
-            <Link to="categories">
-              <Icon type="tags-o" />
-              <span>商品分类管理</span>
-            </Link>
-          </Item>
-          <SubMenu title={<span><Icon type="profile" />订单信息管理</span>}>
+          <SubMenu title={<span><Icon type="tags-o" />商品分类管理</span>}>
+            <Item key="3">
+              <Link to="/category/first">
+                <span>一级分类</span>
+              </Link>
+            </Item>
             <Item key="4">
-              <Link to="orders">
+              <Link to="/category/second">
+                <span>二级分类</span>
+              </Link>
+            </Item>
+          </SubMenu>
+          <SubMenu title={<span><Icon type="profile" />订单信息管理</span>}>
+            <Item key="5">
+              <Link to="/orders">
                 <span>订单查询</span>
               </Link>
             </Item>
-            <Item key="5">
-              <Link to="orders">
+            <Item key="6">
+              <Link to="/orders">
                 <span>发货处理</span>
               </Link>
             </Item>
-            <Item key="6">
-              <Link to="orders">
+            <Item key="7">
+              <Link to="/orders">
                 <span>退款处理</span>
               </Link>
             </Item>
           </SubMenu>
-          <SubMenu title={<span><Icon type="switcher" />广告信息管理</span>}>
-            <Item key="7">
-              <Link to="advertisments">
-                <span>滑动广告</span>
-              </Link>
-            </Item>
-            <Item key="8">
-              <Link to="adv_category">
-                <span>推荐分类</span>
-              </Link>
-            </Item>
-          </SubMenu>
+          <Item key="8">
+            <Link to="/advertisments">
+              <Icon type="switcher" />
+              <span>滑动广告管理</span>
+            </Link>
+          </Item>
         </Menu>
       </Sider>
     )
