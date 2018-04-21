@@ -25,7 +25,7 @@ import {
     getCategories: () => dispatch(fetchCategories())
   })
 )
-export default class Categories extends React.Component {
+export default class CategoryFirst extends React.Component {
   static propTypes = {
     adminId: PropTypes.number.isRequired,
     token: PropTypes.string.isRequired,
@@ -141,10 +141,10 @@ export default class Categories extends React.Component {
           <Panel.Header type="light">
             <Breadcrumb>
               <Breadcrumb.Item>主页</Breadcrumb.Item>
-              <Breadcrumb.Item>商品分类</Breadcrumb.Item>
+              <Breadcrumb.Item>一级商品分类</Breadcrumb.Item>
             </Breadcrumb>
-            <h2>商品分类</h2>
-            <p>商品分类展示，可以进行新增商品分类，修改商品分类，删除商品分类操作</p>
+            <h2>一级商品分类</h2>
+            <p>一级商品分类展示，可以进行新增商品分类，修改商品分类，删除商品分类操作</p>
             <Divider style={{marginTop: '10px', marginBottom: '30px'}} />
             <Button
               type="primary"
