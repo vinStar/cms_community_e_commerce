@@ -95,10 +95,11 @@ export default class Goods extends React.Component {
   handlePageChange = (pageNum) => {
     const {
       adminId,
-      token
+      token,
+      goods
     } = this.props
 
-    this.props.fetchGoods(adminId, token, pageNum)
+    this.props.fetchGoods(adminId, token,goods, pageNum)
   }
 
   handleAddModalShow = () => {
