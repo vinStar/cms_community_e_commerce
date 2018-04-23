@@ -3,10 +3,9 @@ import {
   USER_API
 } from '../constants';
 import axios from 'axios';
-import {
-  rest,
-  postData
-} from '../utils';
+import
+  rest
+ from '../utils/rest';
 
 const admin_category = `${ADMIN_API}/categories`;
 const user_category = `${USER_API}/categories`;
