@@ -9,6 +9,8 @@ import DeleteCategoryModal from './DeleteCategoryModal';
 import {
   Button,
   Divider,
+  Layout,
+  Breadcrumb,
   Table
 } from 'antd';
 
@@ -23,7 +25,7 @@ import {
     getCategories: () => dispatch(fetchCategories())
   })
 )
-export default class Categories extends React.Component {
+export default class CategoryFirst extends React.Component {
   static propTypes = {
     adminId: PropTypes.number.isRequired,
     token: PropTypes.string.isRequired,
@@ -134,44 +136,53 @@ export default class Categories extends React.Component {
     }]
 
     return (
-      <Panel>
-        <Panel.Header>
-          <Button
-            type="primary"
-            onClick={this.handleAddFormOpen}
-          >
-            新增分类
-          </Button>
-        </Panel.Header>
-        <Panel.Body>
-          <Table
-            rowKey={record => record.categoryId}
-            dataSource={categories}
-            columns={columns}
-            loading={isFetching}
-            bordered
-          />
-          <AddCategoryModal
-            ref={this.setAddFormRef}
-            visible={this.state.addFormVisible}
-            handleSubmit={this.handleAddSuccess}
-            handleCancel={this.handleClose}
-          />
-          <UpdateCategoryModal
-            value={this.state.updateFormValue}
-            ref={this.setUpdateFormRef}
-            visible={this.state.updateFormVisible}
-            handleSubmit={this.handleUpdateSuccess}
-            handleCancel={this.handleClose}
-          />
-          <DeleteCategoryModal
-            value={this.state.deleteCategoryValue}
-            visible={this.state.deleteModalVisible}
-            handleSubmit={this.handelDeleteSuccess}
-            handleCancel={this.handleClose}
-          />
-        </Panel.Body>
-      </Panel>
+      <Layout.Content>
+        <Panel minus>
+          <Panel.Header type="light">
+            <Breadcrumb>
+              <Breadcrumb.Item>主页</Breadcrumb.Item>
+              <Breadcrumb.Item>一级商品分类</Breadcrumb.Item>
+            </Breadcrumb>
+            <h2>一级商品分类</h2>
+            <p>一级商品分类展示，可以进行新增商品分类，修改商品分类，删除商品分类操作</p>
+            <Divider style={{marginTop: '10px', marginBottom: '30px'}} />
+            <Button
+              type="primary"
+              onClick={this.handleAddFormOpen}
+            >
+              新增分类
+            </Button>
+          </Panel.Header>
+          <Panel.Body type="light">
+            <Table
+              rowKey={record => record.categoryId}
+              dataSource={categories}
+              columns={columns}
+              loading={isFetching}
+              bordered
+            />
+            <AddCategoryModal
+              ref={this.setAddFormRef}
+              visible={this.state.addFormVisible}
+              handleSubmit={this.handleAddSuccess}
+              handleCancel={this.handleClose}
+            />
+            <UpdateCategoryModal
+              value={this.state.updateFormValue}
+              ref={this.setUpdateFormRef}
+              visible={this.state.updateFormVisible}
+              handleSubmit={this.handleUpdateSuccess}
+              handleCancel={this.handleClose}
+            />
+            <DeleteCategoryModal
+              value={this.state.deleteCategoryValue}
+              visible={this.state.deleteModalVisible}
+              handleSubmit={this.handelDeleteSuccess}
+              handleCancel={this.handleClose}
+            />
+          </Panel.Body>
+        </Panel>
+      </Layout.Content>
     )
   }
 }

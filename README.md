@@ -41,20 +41,22 @@ npm start
 ### 目录结构介绍
 ```js
 ### 目录结构介绍
-***├── config                              // webpack配置文件***  
-***├── public                              ***  
-***├── dist                                ***  
-***├── node_modules                        // 项目的包依赖***  
-***├── src                                 // 源码目录***  
-***│   ├── assets                          // 存放项目的一些资源和SCSS文件***  
-***│   ├── components                      // 页面组件***  
+***├── config                              // webpack配置文件***
+***├── public                              ***
+***├── dist                                ***
+***├── node_modules                        // 项目的包依赖***
+***├── src                                 // 源码目录***
+***│   ├── assets                          // 存放项目的一些资源和SCSS文件***
+***│   ├── components                      // 页面组件***
 ***│   ├── containers                      // 页面（容器） ***
-***│   ├── constants                       // 项目全局配置***  
-***│   ├── services                        // 服务器端接口数据映射***  
-***│   ├── reducers                        // reducers***  
-***│   ├── actions                         // actions***  
-***│   ├── utils                           // 封装的一些常用工具 ***  
-***│   ├── Routes.js                       // 页面路由 ***  
-***│   ├── index.js                        // 程序入口文件，加载各种公共组件***  
-***├── .babelrc                            // babel配置文件 ***  
+***│   ├── constants                       // 项目全局配置***
+***│   ├── services                        // 服务器端接口数据映射***
+***│   ├── reducers                        // reducers***
+***│   ├── actions                         // actions***
+***│   ├── utils                           // 封装的一些常用工具 ***
+***│   ├── Routes.js                       // 页面路由 ***
+***│   ├── index.js                        // 程序入口文件，加载各种公共组件***
+***├── .babelrc                            // babel配置文件 ***
 ```
+### 使用说明
+* 管理员默认账号：admin 密码：admin

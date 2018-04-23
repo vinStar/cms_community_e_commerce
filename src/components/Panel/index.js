@@ -22,7 +22,7 @@ export default class Panel extends React.Component {
     } = this.props
 
     const classes = classNames(
-      `${prefixCls}-body`,
+      `${prefixCls}`,
       {
         [`${prefixCls}-minus`]: minus
       }

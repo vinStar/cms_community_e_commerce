@@ -7,6 +7,7 @@ import users from './users';
 import goods from './goods';
 import categories from './categories';
 import service from './service';
+import orders from './orders';
 
 export default combineReducers({
   auth,
@@ -14,5 +15,6 @@ export default combineReducers({
   goods,
   categories,
   service,
+  orders,
   router: routerReducer
 });

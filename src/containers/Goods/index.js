@@ -185,13 +185,16 @@ export default class Goods extends React.Component {
     const processedGoods = []
     const goodList = []
 
-    for (let i = 0, len = goods.length; i < len; i += 3) {
+    // 处理商品列表数据，数组首个为null，放button用
+    for (let i = 0, len = goods.length; i < len;) {
       if (i === 0) {
-        processedGoods.push([null, ...goods.slice(i, i + 2)])
+        processedGoods.push([null, ...goods.slice(0, 2)])
+        i += 2
         continue
       }
 
-      processedGoods.push(goods.slice(i - 1, i + 2))
+      processedGoods.push(goods.slice(i, i + 3))
+      i += 3
     }
 
     processedGoods.map((row, rowId) => {
@@ -237,7 +240,25 @@ export default class Goods extends React.Component {
     if (goodList.length > 0) {
       return goodList
     } else {
-      return null
+      goodList.push(
+        <Row gutter={16} key={1}>
+          <Col
+            span={8}
+            key={2}
+            style={{padding: '8px'}}
+          >
+            <Button
+              className="good-card-add"
+              onClick={this.handleAddModalShow}
+            >
+              <span>
+                <Icon type="plus" /> 添加商品
+              </span>
+            </Button>
+          </Col>
+        </Row>
+      )
+      return goodList
     }
   }
 

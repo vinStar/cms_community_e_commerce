@@ -1,8 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export default function Body({ children }) {
-  const prefixCls = 'panel'
-  const classes = `${prefixCls}-body`
+function Body(props) {
+  const {
+    type,
+    className,
+    prefixCls,
+    children
+  } = props
+
+  const classes = classNames(
+    className,
+    `${prefixCls}-body`,
+    {
+      [`${prefixCls}-light`]: type === 'light'
+    }
+  )
 
   return (
     <div className={classes}>
@@ -10,3 +24,14 @@ export default function Body({ children }) {
     </div>
   )
 }
+
+Body.defaultProps = {
+  prefixCls: 'panel'
+}
+
+Body.propTypes = {
+  type: PropTypes.string,
+  className: PropTypes.string
+}
+
+export default Body;
