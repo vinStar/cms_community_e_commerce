@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Panel from '../../components/Panel';
+import UpdateUserModal from './UpdateUserModal';
 import {
   Table,
   Button,
@@ -30,7 +31,9 @@ import {
 export default class Users extends React.Component {
   state = {
     filteredInfo: null,
-    sortedInfo: null
+    sortedInfo: null,
+    updateFormVisible: false,
+    updateFormValue: {}
   }
 
   static propTypes = {
@@ -39,6 +42,29 @@ export default class Users extends React.Component {
     isFetching: PropTypes.bool.isRequired,
     users: PropTypes.array.isRequired,
     fetchUsers: PropTypes.func.isRequired,
+  }
+
+  handleUpdateOpen = (value) => {
+    this.setState({
+      updateFormVisible: true,
+      updateFormValue: value
+    })
+  }
+
+  handleUpdateSuccess = () => {
+    this.setState({
+      updateFormVisible: false
+    })
+  }
+
+  handleClose = () => {
+    this.setState({
+      updateFormVisible: false
+    })
+  }
+
+  setUpdateFormRef = (form) =>{
+    this.updateForm = form
   }
 
   componentDidMount() {
@@ -99,7 +125,7 @@ export default class Users extends React.Component {
       key: 'action',
       render: (text, record) => (
         <span>
-          <Button type="primary">
+          <Button type="primary" onClick={() => this.handleUpdateOpen(record)}>
             修改信息
           </Button>
           <Divider type="vertical" />
@@ -129,6 +155,13 @@ export default class Users extends React.Component {
               loading={isFetching}
               bordered
               onChange={this.handleChange}
+            />
+            <UpdateUserModal
+              value={this.state.updateFormValue}
+              ref={this.setUpdateFormRef}
+              visible={this.state.updateFormVisible}
+              handleSubmit={this.handleUpdateSuccess}
+              handleCancel={this.handleClose}
             />
           </Panel.Body>
         </Panel>
